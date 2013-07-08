@@ -1,0 +1,129 @@
+#subscribe_form{
+    display: none;
+    float: left;
+    position: relative;
+    background-color: #55adab;
+    padding: 5px;
+    border: 1px solid #1a1a1a;
+    margin: 10px 0 -10px;
+}
+
+#create_subscription_notice{
+    padding: 0 5px;
+    display: block;
+}
+
+.menu_link{
+    cursor: pointer;
+    margin-left: 18px;
+}
+
+#menu_feeds_list li:nth-child(n+4):hover{
+    background-color: rgba(192,192,192,0.5);
+    color: #111;
+}
+#menu_feeds_list{
+    list-style: none;
+}
+
+#menu_feeds_list li button{
+    margin-left: 15px;
+}
+
+#menu_feeds_list li{
+    margin: 4px 0;
+    color: #e9e9e9;
+    vertical-align: middle;
+}
+.menu_feed_list_item .del_feed{
+    margin: 4px 10px;
+    float: right;
+}
+
+.menu_feed_list_item img{
+    padding-right: 5px;
+}
+
+.menu_feed_list_item .del_feed:hover{
+    background-image: url("../img/glyphicons-halflings.png");
+}
+
+#overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #000;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+#loading {
+    width: 50px;
+    height: 57px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -28px 0 0 -25px;
+}
+
+#feed_display{
+    margin: 3px;
+    height: 90%;
+    overflow: auto;
+}
+
+#results{ margin-left: 170px; }
+
+#feed_display li{
+    list-style: none;
+    padding-left: 10px;
+    margin: 0 auto 3px;
+    width: 95%;
+    text-align: left;
+    overflow: hidden;
+    color: #434;
+    cursor: pointer;
+    /* Gradient */
+    background: #777; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#777777');  /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#777));  /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #fff,  #777);  /* for firefox 3.6+ */
+    /* END - Gradient */
+}
+
+#feed_display li span{ padding-right: 10px; }
+
+body{
+    background-color: #55adab;
+}
+
+#sidebar{
+    width: 250px;
+    margin: 0 10px 10px;
+    background-color: #551033;
+    height: 80%;
+    padding: 15px 0;
+    float: left;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.read{
+    background: #EDF !important;
+    font-weight: normal;
+}
+
+.article{
+    background-color: #e9e9e9;
+    margin: -12px 0 4px;
+    width: 95%;
+    padding: 0 5px 5px 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.article li{
+    background: none !important;
+    cursor: default !important;
+}

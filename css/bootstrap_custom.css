@@ -1,0 +1,32 @@
+.badge{ margin-right: 10px; }
+.navbar{ margin-bottom: 10px; }
+.navbar .brand{ color: #FFF; }
+
+ul{
+    padding: 0;
+    margin: 0;
+}
+
+.pull-right{
+    margin: 10px;
+    display: none;
+}
+
+.pull-right .btn{
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.pull-right .btn-group .btn{
+    margin: 0;
+}
+
+h3{
+    line-height: 30px;
+    padding: 5px 0 7px;
+}
+
+.navbar .btn,
+.navbar .btn-group{
+    margin-top: 0;
+}
