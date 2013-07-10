@@ -107,7 +107,7 @@ class pdo_connection{
         $values = substr($values, 0, strlen($values)-1);
         $stmt = "INSERT INTO $tbl_name SET $values";
 
-        if($this->debug)    echo $stmt;
+        if($this->debug)    echo $stmt."\r\n";
         return $this->db->exec($stmt);
     }
 

@@ -1,0 +1,60 @@
+.list_item img{
+    padding-right: 15px;
+}
+
+#overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #000;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+#loading {
+    width: 50px;
+    height: 57px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -28px 0 0 -25px;
+}
+
+#feed_list{
+    overflow: auto;
+}
+
+#feed_list li{
+    list-style: none;
+    padding: 20px 10px;
+    text-align: left;
+    font-size: 16px;
+    overflow: hidden;
+    color: #434;
+    /* Gradient */
+    background: #777; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#777777');  /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#777));  /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #fff,  #777);  /* for firefox 3.6+ */
+    /* END - Gradient */
+}
+
+
+body{
+    background-color: #e9e9e9;
+    margin: auto;
+}
+
+.article{
+    background: #e9e9e9 !important;
+    padding: 5px 10px !important;
+}
+
+.article ul li{ list-style: disc !important; }
+.article ol li{ list-style: decimal !important; }
+.article li{
+    background: none !important;
+    overflow: visible !important;
+    padding: 10px 5px !important;
+}

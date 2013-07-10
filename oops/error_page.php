@@ -1,7 +1,8 @@
 <?php
 /**
- * Created by: denis
- * Created on: 2013-06-15
+ * Created by: jdenoc
+ * Created on: 2013-6-15
+ * Last Modified: 2013-7-09
  *
  * Error page that will be displayed for 400 and 500 errors
  */
@@ -18,7 +19,7 @@ mail('rss@jdenoc.com', 'ERROR', $msg);
 <head>
     <title><?php echo $error; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="5; URL=<?php echo 'http://'.$_SERVER["HTTP_HOST"].'/index.html'?>"/>
+    <meta http-equiv="refresh" content="5; URL=<?php echo 'http://'.$_SERVER["HTTP_HOST"].'/index.php'?>"/>
     <link rel="icon" href="<?php echo 'http://'.$_SERVER["HTTP_HOST"].'/img/rss.png'; ?>" type="image/x-icon"/>
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Merienda+One' type='text/css'/>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -50,7 +51,7 @@ mail('rss@jdenoc.com', 'ERROR', $msg);
         <p>It seems that you've encountered a problem.</p>
         <p>Please wait a moment while you are redirected...</p>
         <p>&nbsp;</p>
-        <p>If you are not redirected automatically, click <a href="<?php echo 'http://'.$_SERVER["HTTP_HOST"].'/index.html'?>">Here</a></p>
+        <p>If you are not redirected automatically, click <a href="<?php echo 'http://'.$_SERVER["HTTP_HOST"].'/index.php'?>">Here</a></p>
     </div>
 </div>
 </body>

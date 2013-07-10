@@ -1,8 +1,17 @@
-<!--
- * User:        jdenoc
- * Created:     2013-6-04
- * Modified:    2013-6-20
--->
+<?php
+/**
+ * Created by: jdenoc
+ * Created on: 2013-6-04
+ * Last Modified: 2013-7-09
+ */
+
+include_once('php_scripts/Mobile_Detect.php');
+$detect = new Mobile_Detect();
+if($detect->isMobile()){
+    header('Location: mobile/');
+}
+
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -34,7 +43,7 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner"><div class="container">
         <span class="brand">RSS Reader</span>
-        <span class="pull-right">
+        <span class="pull-right" style="display: none">
              <!--
                 TODO - Add a change order (oldest first; newest first)
                 -->

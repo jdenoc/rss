@@ -1,7 +1,8 @@
 <?php
 /**
- * Created by: denis
+ * Created by: jdenoc
  * Created on: 2013-06-30
+ * Last Modified" 2013-07-09
  */
 
 require_once('connection.php');
@@ -26,7 +27,7 @@ if($period != 0){
 
 $read = $db->update(
     'feed_articles',
-    array('viewed'=>1, 'viewed_date'=>date('Y-m-d H:i:s')),
+    array('viewed'=>1),
     $where_string,
     $where_array
 );

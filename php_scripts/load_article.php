@@ -14,16 +14,31 @@ if(!$article){        // No article available.
     exit;
 }
 
+
 $marked = ($article['marked'] == 1) ? 'checked' : '';
 $read = ($article['viewed'] == 1) ? 'checked' : '';
-$text  = "<div class=\"article\">\r\n";
-$text .= '  <h3><a href="'.$article['link'].'" target="_blank">'.$article['title'].'</a></h3>'."\r\n";
-$text .= '  '.$article['content']."\r\n";
-$text .= "  <div style=\"padding: 5px; border-top: 1px solid #bbb;\">\r\n";
-$text .= '  <label style="display: inline; margin-right: 20px"><input type="checkbox" style="margin: -3px 0 0 8px;" onclick="markRead('.$article_id.')" '.$read.'/> Mark as Read</label>';
-$text .= '  <span class="badge badge-warning"  style="margin-right:0"><input type="checkbox" style="margin: 0 -3px 0 -2px;" onclick="markArticle('.$article_id.')" '.$marked.'/></span> Marked'."\r\n";
+if(isset($_REQUEST['m'])){
+    $text  = "<li class=\"list_item article\">\r\n";
+    $text .= '  <h3><a href="'.$article['link'].'" target="_blank">'.$article['title'].'</a></h3>'."\r\n";
+    $text .= '  '.html_entity_decode($article['content'])."\r\n";
+    $text .= "  <div style=\"padding: 5px; border-top: 1px solid #bbb;\">\r\n";
+    $text .= '  <label style="display: inline; margin-right: 20px"><input type="checkbox" style="margin: -3px 0 0 8px;" onclick="markRead('.$article_id.')" '.$read.'/> Mark as Read</label>';
+    $text .= '  <label style="display: inline;"><span class="badge badge-warning"  style="margin-right:0"><input type="checkbox" style="margin: 0 -3px 0 -2px;" onclick="markArticle('.$article_id.')" '.$marked.'/></span> Marked</label>'."\r\n";
+    // TODO - add sharing features.
+    // TODO - add return to top link
+    $text .= "</li>\r\n";
+
+} else {
+    $text  = "<div class=\"article\">\r\n";
+    $text .= '  <h3><a href="'.$article['link'].'" target="_blank">'.$article['title'].'</a></h3>'."\r\n";
+    $text .= '  '.html_entity_decode($article['content'])."\r\n";
+    $text .= "  <div style=\"padding: 5px; border-top: 1px solid #bbb;\">\r\n";
+    $text .= '  <label style="display: inline; margin-right: 20px"><input type="checkbox" style="margin: -3px 0 0 8px;" onclick="markRead('.$article_id.')" '.$read.'/> Mark as Read</label>';
+    $text .= '  <label style="display: inline;"><span class="badge badge-warning"  style="margin-right:0"><input type="checkbox" style="margin: 0 -3px 0 -2px;" onclick="markArticle('.$article_id.')" '.$marked.'/></span> Marked</label>'."\r\n";
 // TODO - add sharing features.
-$text .= "</div>\r\n";
+    $text .= "</div>\r\n";
+
+}
 
 print $text;
 $db->closeConnection();

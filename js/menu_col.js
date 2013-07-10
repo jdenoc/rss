@@ -8,6 +8,12 @@ $(document).ready(function(){
     $('.dropdown-toggle').dropdown();
 });
 
+function printTime(){
+    // USED FOR TESTING ONLY
+    var now = new Date();
+    console.log(now);
+    setTimeout(printTime, 1000);
+}
 
 function nocache(){
     var text = "";
@@ -115,7 +121,7 @@ function loadMenuCol(){
             }else{              // Feeds available and displayed
                 $('#menu_feeds_list').find('.menu_feed_list_item').remove();
                 $('#menu_feeds_list').append(data);
-                setTimeout(loadMenuCol, 10*60*1000);
+                setTimeout(loadMenuCol, 10*1000);
             }
 
         },

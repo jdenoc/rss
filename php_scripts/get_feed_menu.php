@@ -8,9 +8,10 @@
 require_once('connection.php');
 $db = new pdo_connection('jdenocco_rss');
 
-$feeds = $db->getAllRows("SELECT
+$feeds = $db->getAllRows("
+    SELECT
       s.*,
-      CONCAT( '(', (SELECT COUNT(id) FROM feed_articles WHERE feed_id=s.id AND viewed=0), ')' ) AS unviewed
+      CONCAT( '(', (SELECT COUNT(fa.id) FROM feed_articles AS fa WHERE fa.feed_id=s.id AND fa.viewed=0), ')' ) AS unviewed
     FROM subscriptions AS s
     ORDER BY s.feed_title"
 );
@@ -20,13 +21,23 @@ if(!$feeds){        // No feeds available.
 }
 
 $text = '';
-foreach($feeds as $f){
-    $text .= '<li class="menu_feed_list_item ">'."\r\n";
-    $text .= '  <span title="'.$f['feed_url'].'" class="menu_link" onclick="loadRss(\''.$f['feed_title'].'\', '.$f['id'].');">'."\r\n";
-    $text .= '      <img src="'.check_feed_icon($f['feed_title']).'" alt="icon" class="menu_icon" />'.$f['feed_title'].' '.$f['unviewed']."\r\n";
-    $text .= "  </span>\r\n";
-    $text .= '  <span class="del_feed icon-trash icon-white" onclick="removeSubscription('.$f['id'].')" ></span>'."\r\n";
-    $text .= "</li>\r\n";
+if(isset($_REQUEST['m'])){
+    foreach($feeds as $f){
+        $text .= '<li class="list_item" onclick="window.location=\'?id='.$f['id'].'\'">'."\r\n";
+        $text .= '  <span title="'.$f['feed_url'].'" class="menu_link">'."\r\n";
+        $text .= '      <img src="../'.check_feed_icon($f['feed_title']).'" alt="icon" class="menu_icon" />'.$f['feed_title'].' '.$f['unviewed']."\r\n";
+        $text .= "  </span>\r\n";
+        $text .= "</li>\r\n";
+    }
+} else {
+    foreach($feeds as $f){
+        $text .= '<li class="menu_feed_list_item ">'."\r\n";
+        $text .= '  <span title="'.$f['feed_url'].'" class="menu_link" onclick="loadRss(\''.$f['feed_title'].'\', '.$f['id'].');">'."\r\n";
+        $text .= '      <img src="'.check_feed_icon($f['feed_title']).'" alt="icon" class="menu_icon" />'.$f['feed_title'].' '.$f['unviewed']."\r\n";
+        $text .= "  </span>\r\n";
+        $text .= '  <span class="del_feed icon-trash icon-white" onclick="removeSubscription('.$f['id'].')" ></span>'."\r\n";
+        $text .= "</li>\r\n";
+    }
 }
 
 print $text;

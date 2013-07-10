@@ -152,7 +152,7 @@ function displayRss(feed_id){
 //          successful request
             if(data == 0){        // Not a valid RSS feed
                 endLoading();
-                var empty = '<li style="padding: 60px 0; text-align: center;cursor: default;background: #e9e9e9;font-weight: bold">Feed has nothing new at this moment...<br/><br/><br/>Sorry ( ; _ ; )</li>';
+                var empty = '<li style="padding: 60px 0; text-align: center;cursor: default;background: #e9e9e9;font-weight: bold; border-radius: 5px">Feed has nothing new at this moment...<br/><br/><br/>Sorry ( ; _ ; )</li>';
                 $(empty).appendTo( $('#feed_display') );
             } else {        // Success
                 // display new articles

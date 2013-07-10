@@ -1,7 +1,8 @@
 <?php
 /**
- * User: denis
+ * User: jdenoc
  * Date: 2013-06-04
+ * Last modified: 2013-07-09
  */
 date_default_timezone_set("UTC");
 require_once('connection.php');
@@ -30,7 +31,8 @@ foreach($doc->getElementsByTagName($node_name) as $node){
     $insert_array['title'] = trim($node->getElementsByTagName('title')->item(0)->nodeValue);
     if(!($db->getValue("SELECT id FROM feed_articles WHERE title LIKE :title", array('title'=>$insert_array['title'])))){
         $insert_array['link'] = trim($node->getElementsByTagName('link')->item(0)->nodeValue);
-        $insert_array['content'] = trim($node->getElementsByTagName($content_name)->item(0)->nodeValue);
+        $content = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $node->getElementsByTagName($content_name)->item(0)->nodeValue);
+        $insert_array['content'] = htmlentities(trim($content));
         $insert_array['stamp'] = date('Y-m-d H:i:s');   // Set Download stamp
         $insert_array['feed_id'] = $feed_id;
 
