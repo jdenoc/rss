@@ -24,6 +24,7 @@ if(isset($_REQUEST['id'])){
 
 if(isset($_REQUEST['a'])){
     $article = $_REQUEST['a'];
+    $feed_name = '<i class="icon-chevron-left icon-white"></i>'.$feed_name;
 } else {
     $article = '';
 }

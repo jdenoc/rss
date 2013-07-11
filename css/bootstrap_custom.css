@@ -31,4 +31,8 @@ h3{
         padding-left: 10px;
         padding-right: 0;
     }
+
+    .icon-chevron-left{
+        margin-top: 3px;
+    }
 }

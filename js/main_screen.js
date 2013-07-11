@@ -118,7 +118,7 @@ function loadRss(feed_name, feed_id){
             } else {                    // Something bad happened
                 console.log('something bad happened while updating feed.... oops!');
                 console.log(data);
-                setTimeout(loadRss, 5000);
+                setTimeout(loadRss(feed_name, feed_id), 5000);
             }
         },
         error:function(){               // Something worse happened

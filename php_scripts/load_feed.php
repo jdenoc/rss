@@ -23,7 +23,7 @@ if(isset($_REQUEST['m'])){
         $marked = ($a['marked'] == 1) ? 'badge-warning' : '';
         $text .= '<li id="'.$a['id'].'" class="list_item label '.($a['viewed']==1 ? 'read' : '').'" onclick="window.location=\'?a='.$a['id'].'&id='.$_REQUEST['feed_id'].'\'">'."\r\n";
         $text .= '  <span class="badge '.$marked.'" onclick="markArticle('.$a['id'].')">&nbsp;</span>'."\r\n";
-        $text .= '  <span>'.$a['title']."</span>\r\n";
+        $text .= '  <span>'.html_entity_decode($a['title'])."</span>\r\n";
         $text .= "</li>\r\n";
     }
 } else {
@@ -32,7 +32,7 @@ if(isset($_REQUEST['m'])){
         $marked = ($a['marked'] == 1) ? 'badge-warning' : '';
         $text .= '<li id="'.$a['id'].'" class="label '.($a['viewed']==1 ? 'read' : '').'">'."\r\n";
         $text .= '  <span class="badge '.$marked.'" onclick="markArticle('.$a['id'].')">&nbsp;</span>'."\r\n";
-        $text .= '  <span  onclick="displayArticle('.$a['id'].')">'.$a['title']."</span>\r\n";
+        $text .= '  <span  onclick="displayArticle('.$a['id'].')">'.html_entity_decode($a['title'])."</span>\r\n";
         $text .= "</li>\r\n";
     }
 }

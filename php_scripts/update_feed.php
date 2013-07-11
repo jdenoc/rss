@@ -28,11 +28,11 @@ if($feed_info['feed_type']=='rss'){
 // Processing RSS/Atom Feed
 $insert_array = array();
 foreach($doc->getElementsByTagName($node_name) as $node){
-    $insert_array['title'] = trim($node->getElementsByTagName('title')->item(0)->nodeValue);
+    $insert_array['title'] = htmlentities(trim($node->getElementsByTagName('title')->item(0)->nodeValue), ENT_QUOTES);
     if(!($db->getValue("SELECT id FROM feed_articles WHERE title LIKE :title", array('title'=>$insert_array['title'])))){
         $insert_array['link'] = trim($node->getElementsByTagName('link')->item(0)->nodeValue);
         $content = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $node->getElementsByTagName($content_name)->item(0)->nodeValue);
-        $insert_array['content'] = htmlentities(trim($content));
+        $insert_array['content'] = htmlentities(trim($content), ENT_QUOTES);
         $insert_array['stamp'] = date('Y-m-d H:i:s');   // Set Download stamp
         $insert_array['feed_id'] = $feed_id;
 

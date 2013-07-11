@@ -19,7 +19,7 @@ $marked = ($article['marked'] == 1) ? 'checked' : '';
 $read = ($article['viewed'] == 1) ? 'checked' : '';
 if(isset($_REQUEST['m'])){
     $text  = "<li class=\"list_item article\">\r\n";
-    $text .= '  <h3><a href="'.$article['link'].'" target="_blank">'.$article['title'].'</a></h3>'."\r\n";
+    $text .= '  <h3><a href="'.$article['link'].'" target="_blank">'.html_entity_decode($article['title']).'</a></h3>'."\r\n";
     $text .= '  '.html_entity_decode($article['content'])."\r\n";
     $text .= "  <div style=\"padding: 5px; border-top: 1px solid #bbb;\">\r\n";
     $text .= '  <label style="display: inline; margin-right: 20px"><input type="checkbox" style="margin: -3px 0 0 8px;" onclick="markRead('.$article_id.')" '.$read.'/> Mark as Read</label>';
@@ -30,7 +30,7 @@ if(isset($_REQUEST['m'])){
 
 } else {
     $text  = "<div class=\"article\">\r\n";
-    $text .= '  <h3><a href="'.$article['link'].'" target="_blank">'.$article['title'].'</a></h3>'."\r\n";
+    $text .= '  <h3><a href="'.$article['link'].'" target="_blank">'.html_entity_decode($article['title']).'</a></h3>'."\r\n";
     $text .= '  '.html_entity_decode($article['content'])."\r\n";
     $text .= "  <div style=\"padding: 5px; border-top: 1px solid #bbb;\">\r\n";
     $text .= '  <label style="display: inline; margin-right: 20px"><input type="checkbox" style="margin: -3px 0 0 8px;" onclick="markRead('.$article_id.')" '.$read.'/> Mark as Read</label>';

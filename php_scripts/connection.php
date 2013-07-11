@@ -23,7 +23,7 @@ class pdo_connection{
     }
 
     public function exec($stmt){
-        if($this->debug)    echo $stmt;
+        if($this->debug)    echo $stmt."\r\n";
         return $this->db->exec($stmt);
     }
 
@@ -36,7 +36,7 @@ class pdo_connection{
         $query->execute();
 
         if($this->debug){
-            echo $stmt;
+            echo $stmt."\r\n";
             $query->debugDumpParams();
         }
         return $query->fetchAll();
@@ -56,7 +56,7 @@ class pdo_connection{
         $query->execute();
 
         if($this->debug){
-            echo $stmt;
+            echo $stmt."\r\n";
             $query->debugDumpParams();
         }
         return $query->fetchColumn();
@@ -76,7 +76,7 @@ class pdo_connection{
         }
 
         if($this->debug){
-            echo $stmt;
+            echo $stmt."\r\n";
             $query->debugDumpParams();
         }
         return $array;
@@ -92,7 +92,7 @@ class pdo_connection{
         $query->execute();
 
         if($this->debug){
-            echo $stmt;
+            echo $stmt."\r\n";
             $query->debugDumpParams();
         }
         return $query->fetch();
@@ -129,7 +129,7 @@ class pdo_connection{
         $result = $query->execute();
 
         if($this->debug){
-            echo $stmt;
+            echo $stmt."\r\n";
             $query->debugDumpParams();
         }
         return $result;
@@ -146,7 +146,7 @@ class pdo_connection{
         $result = $query->execute();
 
         if($this->debug){
-            echo $stmt;
+            echo $stmt."\r\n";
             $query->debugDumpParams();
         }
         return $result;
