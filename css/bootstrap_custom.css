@@ -24,6 +24,11 @@ h3{
     margin-top: 0;
 }
 
+#share .dropdown-menu{
+    min-width: 0;
+    padding-right: 9px;
+}
+
 @media screen and (max-device-width: 480px) and (orientation: portrait){
     .navbar{ margin-bottom: 0; }
 

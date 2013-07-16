@@ -21,9 +21,10 @@ $text = '';
 if(isset($_REQUEST['m'])){
     foreach($articles as $a){
         $marked = ($a['marked'] == 1) ? 'badge-warning' : '';
-        $text .= '<li id="'.$a['id'].'" class="list_item label '.($a['viewed']==1 ? 'read' : '').'" onclick="window.location=\'?a='.$a['id'].'&id='.$_REQUEST['feed_id'].'\'">'."\r\n";
-        $text .= '  <span class="badge '.$marked.'" onclick="markArticle('.$a['id'].')">&nbsp;</span>'."\r\n";
-        $text .= '  <span>'.html_entity_decode($a['title'])."</span>\r\n";
+        $text .= '<script type="text/javascript">var marked='.$a['marked'].'</script>'."\r\n";
+        $text .= '<li id="'.$a['id'].'" class="list_item label '.($a['viewed']==1 ? 'read' : '').'" >'."\r\n";
+        $text .= '  <span class="badge '.$marked.'" onclick="markArticle('.$a['id'].', marked)">&nbsp;</span>'."\r\n";
+        $text .= '  <span onclick="window.location=\'?a='.$a['id'].'&id='.$_REQUEST['feed_id'].'\'">'.html_entity_decode($a['title'])."</span>\r\n";
         $text .= "</li>\r\n";
     }
 } else {

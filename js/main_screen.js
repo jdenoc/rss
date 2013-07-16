@@ -41,11 +41,11 @@ function markArticle(article_id){
     var isMarked;
     if($('#'+article_id+' .badge-warning').text() == ''){
         console.log('Article:'+article_id+' was NOT marked.');
-        isMarked = false;
+        isMarked = 0;
 
     } else {
         console.log('Article:'+article_id+' was marked.');
-        isMarked = true;
+        isMarked = 1;
 
     }
 
@@ -86,7 +86,9 @@ function loadRss(feed_name, feed_id){
     if(feed_id == undefined){
         return;     // exit function
     }else if(feed_id == 0){     // For refreshing the mark articles page
+        console.log('Loading Marked articles.');
         displayRss(feed_id);
+        return;
     }
 
     if(feed_name == ''){
@@ -113,6 +115,7 @@ function loadRss(feed_name, feed_id){
                 loadCount = 0;
                 displayRss(feed_id, 0);    // Load RSS feed articles
             } else if(loadCount > 3){
+                loadCount = 0;
                 alert('Couldn\'t load the feed.');
                 endLoading();
             } else {                    // Something bad happened
@@ -122,7 +125,7 @@ function loadRss(feed_name, feed_id){
             }
         },
         error:function(){               // Something worse happened
-            console.log('Error loading RSS');
+            console.log('*** Error loading RSS ***');
             console.log('something bad happened while updating feed.... oops!');
             console.log(data);
             endLoading();
@@ -161,7 +164,7 @@ function displayRss(feed_id){
             }
         },
         error:function(){
-            console.log('Error displaying Feed');
+            console.log('*** Error displaying Feed ***');
             endLoading();
         }
     });
@@ -185,7 +188,7 @@ function displayArticle(article_id){
             removeArticle();
             if(!$('#'+article_id).hasClass('read')){
                 // If not read, mark read.
-                markRead(article_id, false);
+                markRead(article_id, 0);
             }
         },
         success:function(data){
@@ -226,11 +229,11 @@ function markRead(article_id, isRead){
     if(isRead == undefined){
         if($('#'+article_id).hasClass('read')){
             console.log('Article:'+article_id+' has been read.');
-            isRead = true;
+            isRead = 1;
 
         } else {
             console.log('Article:'+article_id+' has NOT been read.');
-            isRead = false;
+            isRead = 0;
 
         }
     }

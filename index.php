@@ -18,6 +18,9 @@ if($detect->isMobile()){
     <title>RSS Reader</title>
     <meta charset="UTF-8" />
     <link href="img/menu_icons/rss.png" rel="SHORTCUT ICON">
+    <link href='http://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Shanti' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/main_screen.js"></script>
     <script type="text/javascript" src="js/menu_col.js"></script>
@@ -84,8 +87,8 @@ if($detect->isMobile()){
             </div>
         </li>
         <li>&nbsp;</li>
-        <li><span title="Marked" class="menu_link" onclick="displayRss(0)">
-            <span class="badge badge-warning">&nbsp;</span>Marked
+        <li><span title="Marked for Later" class="menu_link" onclick="displayRss(0)">
+            <span class="badge badge-warning">&nbsp;</span>Marked for Later
         </span></li>
 
         <!-- This rest of this list is populated from functions in menu_col.js -->

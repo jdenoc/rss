@@ -1,14 +1,14 @@
 <?php
 /**
- * Created by: denis
+ * Created by: jdenoc
  * Created on: 2013-06-18
- * Modified on: 2013-06-26
+ * Modified on: 2013-07-13
  */
 
 require_once('connection.php');
 $db = new pdo_connection('jdenocco_rss');
 
-if($_REQUEST['marked']=='true'){    // If already marked, then un-mark and vice versa
+if($_REQUEST['marked']==1){    // If already marked, then un-mark and vice versa
     $marked = 0;
     $marked_date = '0000-00-00 00:00:00';
 } else {

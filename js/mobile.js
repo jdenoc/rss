@@ -1,14 +1,13 @@
 /**
- * Created with JetBrains PhpStorm.
- * User: denis
- * Date: 7/8/13
- * Time: 9:46 PM
- * To change this template use File | Settings | File Templates.
+ * User: jdenoc
+ * Created on: 2013-07-08
+ * Last Modified: 2013-07-13
  */
 
 $(document).ready(function(){
     if($('#feed_id').val() != ''){
         if($('#article').val() != ''){
+            markRead( $('#article').val(), 0 );
             loadArticle( $('#article').val() );
         } else {
             loadFeed( $('#feed_id').val() );
@@ -88,8 +87,8 @@ function loadMenu(){
                 alert('You currently havn\'t got any feeds right now. Why not click on the subscribe button.');
             }else{              // Feeds available and displayed
                 $('#feed_list').append(data);
-                endLoading();
             }
+            endLoading();
             assignListItemWidth();
 
         },
@@ -112,19 +111,19 @@ function loadFeed(feed_id){
         },
         success:function(data){
 //          successful request
-            if(data == 0){        // Not a valid RSS feed
+            if(data == 0){
+            // No articles available
                 var empty = '<li style="padding: 60px 0; text-align: center;cursor: default;background: #e9e9e9;font-weight: bold; border-radius: 5px">Feed has nothing new at this moment...<br/><br/><br/>Sorry ( ; _ ; )</li>';
                 $(empty).appendTo( $('#feed_list') );
-                endLoading();
             } else {        // Success
-            // display new articles
+            // Display new articles
                 $(data).appendTo( $('#feed_list') );
-                endLoading();
             }
+            endLoading();
             assignListItemWidth();
         },
         error:function(){
-            console.log('Error displaying Feed');
+            console.log('*** Error displaying Feed ***');
             endLoading();
         }
     });
@@ -144,12 +143,12 @@ function loadArticle(article_id){
         },
         success:function(data){
 //          successful request
-            if(data == 0){        // Not a valid Article;
+            if(data == 0){
+            // Not a valid Article or Article unable to load
                 var empty = '<li style="padding: 60px 0; text-align: center;cursor: default;background: #e9e9e9;font-weight: bold; border-radius: 5px">Article Not Available</li>';
                 $(empty).appendTo( $('#feed_list') );
-                endLoading()
             } else {        // Success
-//              display article
+            // Display Article
                 console.log('loading article');
                 $(data).appendTo( $('#feed_list') );
                 $('.article').children().removeAttr('style');
@@ -160,12 +159,73 @@ function loadArticle(article_id){
                 });
                 $('.article a:link').attr('target', '_blank');      // All article links should open in a new tab.
                 console.log('article loaded');
-                endLoading();
             }
+            endLoading();
 
         },
         error:function(){
-            console.log('Error displaying Article');
+            console.log('*** Error displaying Article ***');
+        }
+    });
+}
+
+
+function markRead(article_id, isRead){
+    $.ajax({
+        type: 'POST',
+        url: '../php_scripts/read_feed_article.php?m='+nocache(),
+        data: {
+            'viewed' : isRead,
+            'article_id' : article_id
+        },
+        cache: false,
+        beforeSend:function(){},
+        success:function(data){
+            // successful request;
+            if(data != 0 && data != 1){     // Problems???
+                // failed to Un-mark or mark article as read
+                console.log('Problem marking article:'+article_id+' as read');
+                console.log(data);
+            }else{
+                viewed = data;
+            }
+        },
+        error:function(){
+            console.log('*** Error Marking Article as Read ***');
+        }
+    });
+}
+
+
+function markArticle(article_id, isMarked){
+    $.ajax({
+        type: 'POST',
+        url: '../php_scripts/mark_feed_article.php?m='+nocache(),
+        data: {
+            'marked' : isMarked,
+            'article_id' : article_id
+        },
+        cache: false,
+        beforeSend:function(){},
+        success:function(data){
+//          successful request;
+            if(data == 0){          // Un-mark article
+                $('#'+article_id+' .badge').removeClass('badge-warning');
+                marked = 0;
+                console.log('Article:'+article_id+' is now UN-marked.');
+
+            }else if(data == 1){    // Mark article
+                $('#'+article_id+' .badge').addClass('badge-warning');
+                marked = 1;
+                console.log('Article:'+article_id+' is NOW marked.');
+//
+            } else {                // Problem?
+                console.log('Problem marking article:'+article_id+' as marked');
+                console.log(data);
+            }
+        },
+        error:function(){
+            console.log('*** Error Marking Article for Later ***');
         }
     });
 }

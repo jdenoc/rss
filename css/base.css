@@ -127,3 +127,50 @@ body{
     background: none !important;
     cursor: default !important;
 }
+
+.article_sub{
+    margin-top: 10px;
+    padding: 5px;
+    border-top: 1px solid #bbb;
+}
+
+#share{
+    margin: 0;
+}
+
+.email{
+    font-size: 15px;
+    margin: 0 -16px 0 -6px;
+}
+
+.google{
+    font-size: 15px;
+    font-family: 'Noto Serif', serif;
+    margin: 0 -12px 0 -2px;
+}
+
+.facebook{
+    font-size: 15px;
+    font-family: 'Shanti', sans-serif;
+    margin: 0 -5px 0 3px;
+}
+
+.twitter{
+    font-size: 15px;
+    background: url('../img/twitter-bird-light-bgs.png') no-repeat center;
+    background-size: 23px;
+    margin: 0 -6px 0 -3px;
+}
+
+.tumblr{
+    font-size: 15px;
+    font-family: 'Goudy Bookletter 1911', serif;
+    margin: 0 -6px 0 4px;
+}
+
+.pinterest{
+    background: url('../img/pinterest_badge_red.png') no-repeat center;
+    background-size: 16px;
+    font-size: 15px;
+    margin: 0 -4px;
+}
