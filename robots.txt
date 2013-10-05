@@ -1,6 +1,7 @@
 User-agent: *
-Disallow: /cron/
-Disallow: /css/
-Disallow: /js/
-Disallow: /oops/
-Disallow: /php_scripts/
+Disallow: /cron/*
+Disallow: /css/*
+Disallow: /js/*
+Disallow: /oops/*
+Disallow: /php_scripts/*
+Disallow: /img/*
