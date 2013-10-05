@@ -23,6 +23,7 @@
 
 #feed_list{
     overflow: auto;
+    background: url('../img/RSS.png') no-repeat center;
 }
 
 #feed_list li{
@@ -51,6 +52,11 @@ body{
     padding: 5px 10px !important;
 }
 
+.article img {
+    display: block;
+    padding-bottom: 5px;
+}
+
 .article ul li{ list-style: disc !important; }
 .article ol li{ list-style: decimal !important; }
 .article li{
@@ -63,4 +69,9 @@ body{
     margin-top:10px;
     padding: 5px;
     border-top: 1px solid #bbb;
+}
+
+.read{
+    background: #EDF !important;
+    font-weight: normal;
 }
