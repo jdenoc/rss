@@ -113,7 +113,7 @@ function loadRss(feed_name, feed_id){
 //          successful request
             if(data == 1){              // Success
                 loadCount = 0;
-                displayRss(feed_id, 0);    // Load RSS feed articles
+                displayRss(feed_id);    // Load RSS feed articles
             } else if(loadCount > 3){
                 loadCount = 0;
                 alert('Couldn\'t load the feed.');
@@ -127,8 +127,10 @@ function loadRss(feed_name, feed_id){
         error:function(){               // Something worse happened
             console.log('*** Error loading RSS ***');
             console.log('something bad happened while updating feed.... oops!');
-            console.log(data);
+            if(typeof data != 'undefined')  console.log(data);
+            else                            console.log('data undefined');
             endLoading();
+            loadCount = 0;
         }
     });
 
@@ -200,7 +202,6 @@ function displayArticle(article_id){
                 console.log('loading article');
                 $('#'+article_id).after(data);
                 activeArticle = article_id;
-                $('.article').children().removeAttr('style');
                 $('.article iframe').width( $('.article').width()-10 );
                 $.each($('.article iframe'), function(){
                     var popout = '<br/><a href="'+$(this).attr('src')+'" title="Click to open in a new window" target="_blank">Popout</a><br/>';
