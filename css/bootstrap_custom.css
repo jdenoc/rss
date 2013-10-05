@@ -1,5 +1,9 @@
 .badge{ margin-right: 10px; }
-.navbar{ margin-bottom: 10px; }
+.navbar{
+    margin-bottom: 10px;
+    position: fixed;
+    width: 100%;
+}
 .navbar .brand{ color: #FFF; }
 .pull-right{ margin: 10px; }
 .pull-right .btn-group .btn{ margin: 0; }
@@ -30,7 +34,11 @@ h3{
 }
 
 @media screen and (max-device-width: 480px) and (orientation: portrait){
-    .navbar{ margin-bottom: 0; }
+    .navbar{
+        margin-bottom: 0;
+        position: inherit;
+        width: 100%;
+    }
 
     .navbar-inner{
         padding-left: 10px;
@@ -39,5 +47,13 @@ h3{
 
     .icon-chevron-left{
         margin-top: 3px;
+    }
+}
+
+@media screen and (max-device-width: 480px) and (orientation: landscape){
+    .navbar{
+        margin-bottom: 0;
+        position: inherit;
+        width: 100%;
     }
 }
