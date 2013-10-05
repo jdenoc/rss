@@ -37,10 +37,14 @@ if(isset($_REQUEST['a'])){
     <title>RSS Reader</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../img/menu_icons/rss.png" rel="SHORTCUT ICON">
+    <link href="../img/favicon.ico" rel="SHORTCUT ICON"/>
+    <link href="http://fonts.googleapis.com/css?family=Noto+Serif|Shanti|Goudy+Bookletter+1911" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/mobile.js"></script>
-    <script type="text/javascript" src="../js/scrollTo.js"></script>
+
+    <!-- Custom Context Menu -->
+    <link rel="stylesheet" href="../css/jquery.contextMenu.css" type="text/css"/>
+    <script type="text/javascript" src="../js/jquery.contextMenu.js"></script>
+    <!-- END - Custom Context Menu -->
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -50,6 +54,8 @@ if(isset($_REQUEST['a'])){
 
     <link rel="stylesheet" href="../css/mobile.css" type="text/css" />
     <link rel="stylesheet" href="../css/bootstrap_custom.css" type="text/css" />
+    <script type="text/javascript" src="../js/mobile.js"></script>
+    <script type="text/javascript" src="../js/scrollTo.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
