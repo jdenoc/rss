@@ -17,17 +17,15 @@ if($detect->isMobile()){
 <head>
     <title>RSS Reader</title>
     <meta charset="UTF-8" />
-    <link href="img/menu_icons/rss.png" rel="SHORTCUT ICON">
-    <link href='http://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'/>
-    <link href='http://fonts.googleapis.com/css?family=Shanti' rel='stylesheet' type='text/css'/>
-    <link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
+    <link href="img/favicon.ico" rel="SHORTCUT ICON"/>
+    <link href='http://fonts.googleapis.com/css?family=Noto+Serif|Shanti|Goudy+Bookletter+1911' rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/main_screen.js"></script>
     <script type="text/javascript" src="js/menu_col.js"></script>
     <script type="text/javascript" src="js/scrollTo.js"></script>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- END - Bootstrap -->
@@ -47,9 +45,20 @@ if($detect->isMobile()){
     <div class="navbar-inner"><div class="container">
         <span class="brand">RSS Reader</span>
         <span class="pull-right" style="display: none">
-             <!--
-                TODO - Add a change order (oldest first; newest first)
-                -->
+            <!-- Sorting -->
+            <div class="btn-group dropdown">
+                <button class="btn btn-mini" onclick="alert('TODO - Not yet working...')">Sort: </button>
+                <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                    <!--  TODO - finish  -->
+                    <li><a tabindex="-1" href="#" onclick="alert('TODO - Not yet working...')">Newest</a></li>
+                    <li><a tabindex="-1" href="#" onclick="alert('TODO - Not yet working...')">Oldest</a></li>
+                </ul>
+            </div>
+            <!-- END - Sorting -->
+            <!-- Marking as Read -->
             <div class="btn-group dropdown">
                 <button class="btn btn-mini" onclick="markFeedRead(activeFeed, 0)">Mark All Read</button>
                 <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
@@ -62,6 +71,7 @@ if($detect->isMobile()){
                     <li><a tabindex="-1" href="#" onclick="markFeedRead(activeFeed, 30)">Older than a Month</a></li>
                 </ul>
             </div>
+            <!-- END - Marking as Read -->
             <!-- Click this button, should refresh articles of current feed. -->
             <button class="btn btn-mini" onclick="loadRss('', activeFeed)">Refresh <i class="icon-refresh"></i></button>
 
@@ -71,7 +81,7 @@ if($detect->isMobile()){
 <!-- END - Nav Bar -->
 
 <div id="sidebar">
-    <!--Sidebar content-->
+    <!-- Sidebar content -->
     <ul id="menu_feeds_list">
         <li>
             <button class="btn btn-inverse" onclick="loadMenuCol()">Refresh Menu <i class="icon-refresh icon-white"></i></button>
@@ -98,11 +108,9 @@ if($detect->isMobile()){
 </div>
 
 <div id="content">
-<!--Body content-->
-    <ul id="feed_display">
-        <li id="xxx" class="label"><span class="badge badge-warning" onclick="markArticle('test', 'xxx')">&nbsp;</span>xxx</li>
-        <li id="yyy" class="label"><span class="badge " onclick="markArticle('test', 'yyy')">&nbsp;</span>yyy</li>
-        <li id="zzz" class="label"><span class="badge " onclick="markArticle('test', 'zzz')">&nbsp;</span>zzz</li>
+<!-- Body content -->
+    <ul id="feed_display" >
+        <li id="initial_display"></li>
     </ul>
 <!-- END - Body Content -->
 </div>
