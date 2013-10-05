@@ -20,7 +20,9 @@ $(document).ready(function(){
 });
 
 
-$(document).resize( assignListItemWidth() );
+$(window).resize( function(){
+    assignListItemWidth()
+});
 
 
 function assignListItemWidth(){
@@ -113,7 +115,8 @@ function loadFeed(feed_id){
 //          successful request
             if(data == 0){
             // No articles available
-                var empty = '<li style="padding: 60px 0; text-align: center;cursor: default;background: #e9e9e9;font-weight: bold; border-radius: 5px">Feed has nothing new at this moment...<br/><br/><br/>Sorry ( ; _ ; )</li>';
+                var empty = '<li style="padding: 140px 0; text-align: center;cursor: default;background: #e9e9e9;font-weight: bold; border-radius: 5px; opacity: 0.78; filter: alpha(opacity=78);">Feed has nothing new at this moment...<br/><br/><br/>Sorry ( ; _ ; )</li>';
+                empty += '<script type="text/javascript">var contextMenuIDs = [];</script>';
                 $(empty).appendTo( $('#feed_list') );
             } else {        // Success
             // Display new articles
@@ -121,6 +124,7 @@ function loadFeed(feed_id){
             }
             endLoading();
             assignListItemWidth();
+            activateContextMenu('feed');
         },
         error:function(){
             console.log('*** Error displaying Feed ***');
@@ -161,7 +165,7 @@ function loadArticle(article_id){
                 console.log('article loaded');
             }
             endLoading();
-
+            activateContextMenu('article');
         },
         error:function(){
             console.log('*** Error displaying Article ***');
@@ -228,4 +232,69 @@ function markArticle(article_id, isMarked){
             console.log('*** Error Marking Article for Later ***');
         }
     });
+}
+
+function activateContextMenu(type){
+    if(type == 'feed'){
+        $.each(contextMenuIDs, function(index, article){
+            if(!$("#"+article).hasClass('read')){
+                $("#"+article).contextMenu('feed-context-menu', {
+                        'Mark as Read': {
+                            click: function(element){  // element is the jquery obj clicked on when context menu launched
+                                console.log('Context Menu - Marking Read article:'+article);
+                                markRead(article, 0);
+                                $("#"+article).addClass('read');
+                            },
+                            klass: "custom-class1" // a custom css class for this menu item (usable for styling)
+                        },
+                        'Mark Read Articles Above': {
+                            click: function(element){
+                                console.log('Context Menu - Marking articles as READ and above, starting from article:'+article);
+                                for(var idx = (index); idx >= 0; idx--){
+                                    if(!$("#"+contextMenuIDs[idx]).hasClass('read')){
+                                        markRead(contextMenuIDs[idx], 0);
+                                        $("#"+contextMenuIDs[idx]).addClass('read');
+                                    }
+                                }
+                            },
+                            klass: "custom-class2"
+                        }
+                    }
+                );
+            } else {
+                $("#"+article).contextMenu('feed-context-menu', {
+                        'Mark as Unread': {
+                            click: function(element){  // element is the jquery obj clicked on when context menu launched
+                                console.log('Context Menu - Marking Read article:'+article);
+                                markRead(article, 1);
+                                $("#"+article).removeClass('read');
+                            },
+                            klass: "custom-class1" // a custom css class for this menu item (usable for styling)
+                        }
+                    }
+                );
+            }
+        });
+
+    } else {
+        $.each( $('img[title]'), function(idx, element){
+            console.log( $(element) );
+            $(element).contextMenu('article-context-menu-1', {
+                'View Image Title': {
+                    click: function(element){  // element is the jquery obj clicked on when context menu launched
+                        console.log('Showing image title');
+                        alert( $(element).attr('title') );
+                    },
+                    klass: "custom-class1" // a custom css class for this menu item (usable for styling)
+                },
+                'Open Image in new Tab': {
+                    click: function(element){  // element is the jquery obj clicked on when context menu launched
+                        console.log('Opening image in a new tab');
+                        window.open( $(element).attr('src'), '_blank' );
+                    },
+                    klass: "custom-class2" // a custom css class for this menu item (usable for styling)
+                }
+            });
+        });
+    }
 }
