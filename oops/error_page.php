@@ -33,6 +33,16 @@ mail('rss@jdenoc.com', 'ERROR', $msg);
             margin: auto;
             padding-top: 50px;
         }
+        #main:before{
+            background: url(../img/RSS.png) no-repeat center;
+            opacity : 0.2;
+            content: "";
+            position: absolute;
+            z-index:-1;
+            top:30px;
+            width:301px;
+            height:300px;
+        }
         body{
             background: #222;
             color: #e9e9e9;
