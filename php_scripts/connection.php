@@ -152,6 +152,28 @@ class pdo_connection{
         return $result;
     }
 
+    /**
+     * Activates Debug mode, when true is entered into debug function parameters value.
+     * @param bool $activate: default = false. Only really needed for testing.
+     */
+    public function debugMode($activate = false){
+        $this->debug = $activate;
+    }
+
+
+    /**
+     * Looks up database columns of tables that are either of type "enum" or type "set". It then returns those pre-defineted values as an array, for you to do with as you wish.
+     * @param $table: Name of table that enum/set is in
+     * @param $field_name: the column name
+     * @param string $type: default = "enum". Should be set to either "enum" or "set"
+     * @return array
+     */
+    public function getEnumOrSetArray($table, $field_name, $type='enum'){
+        $col_details = $this->getRow("SHOW COLUMNS FROM ".$table." WHERE Field=:field_name", array('field_name'=>$field_name));
+        $field_values = explode(",", str_replace("'", "", substr($col_details['Type'], strlen($type)+1, (strlen($col_details['Type'])-(strlen($type)+2)))));
+        return $field_values;
+    }
+
     public function closeConnection(){
         $this->db = null;
         $this->host = null;
