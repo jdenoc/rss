@@ -33,7 +33,7 @@ h3{
     padding-right: 9px;
 }
 
-@media screen and (max-device-width: 480px) and (orientation: portrait){
+@media only screen and (max-device-width: 768px){
     .navbar{
         margin-bottom: 0;
         position: inherit;
@@ -47,13 +47,5 @@ h3{
 
     .icon-chevron-left{
         margin-top: 3px;
-    }
-}
-
-@media screen and (max-device-width: 480px) and (orientation: landscape){
-    .navbar{
-        margin-bottom: 0;
-        position: inherit;
-        width: 100%;
     }
 }
