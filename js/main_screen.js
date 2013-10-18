@@ -294,6 +294,8 @@ function markFeedRead(feed_id, period){
 }
 
 function setArticleStampLeft(){
-    var newLeft = parseInt($('#feed_display').css('margin-left')) + $('#feed_display li').width() - $('.article_stamp').width();
-    $('.article_stamp').css({'left': newLeft });
+    var mainDisplayWidth = parseInt($('#feed_display').css('margin-left')) + $('#feed_display li').width();
+    $.each($('.article_stamp'), function(index, elem){ 
+        $(elem).css({'left': mainDisplayWidth-$(elem).width() });
+    });
 }
