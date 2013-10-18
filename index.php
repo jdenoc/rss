@@ -19,7 +19,7 @@ if($detect->isMobile()){
     <meta charset="UTF-8" />
     <link href="img/favicon.ico" rel="SHORTCUT ICON"/>
     <link href='http://fonts.googleapis.com/css?family=Noto+Serif|Shanti|Goudy+Bookletter+1911' rel='stylesheet' type='text/css'/>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/main_screen.js"></script>
     <script type="text/javascript" src="js/menu_col.js"></script>
     <script type="text/javascript" src="js/scrollTo.js"></script>

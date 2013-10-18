@@ -8,6 +8,10 @@ $(document).ready(function(){
     $('.dropdown-toggle').dropdown();
 });
 
+$(window).resize( function(){
+    setArticleStampLeft();
+});
+
 function printTime(){
     // USED FOR TESTING ONLY
     var now = new Date();

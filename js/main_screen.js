@@ -163,6 +163,7 @@ function displayRss(feed_id){
                 // display new articles
                 $(data).appendTo( $('#feed_display') );
                 endLoading();
+                setArticleStampLeft();
             }
         },
         error:function(){
@@ -290,4 +291,9 @@ function markFeedRead(feed_id, period){
         },
         error:function(){}
     });
+}
+
+function setArticleStampLeft(){
+    var newLeft = parseInt($('#feed_display').css('margin-left')) + $('#feed_display li').width() - $('.article_stamp').width();
+    $('.article_stamp').css({'left': newLeft });
 }

@@ -51,6 +51,7 @@
 #initial_display{
     background: url('../img/RSS.png') no-repeat center !important;
     height: 300px;
+    max-height: 300px !important;
     padding: 15px;
     cursor: default !important;
 }
@@ -152,7 +153,10 @@ body{
 
 .article_stamp{
     float: right;
-    margin: 2px 5px 0 0;
+    position: absolute;
+    background: #EDF !important;
+    margin-top: -15px;
+    padding: 0 5px 0 10px;
 }
 
 #share{
