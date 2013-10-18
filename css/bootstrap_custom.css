@@ -3,6 +3,7 @@
     margin-bottom: 10px;
     position: fixed;
     width: 100%;
+    z-index: 1;
 }
 .navbar .brand{ color: #FFF; }
 .pull-right{ margin: 10px; }
@@ -39,13 +40,14 @@ h3{
         position: inherit;
         width: 100%;
     }
-
     .navbar-inner{
         padding-left: 10px;
         padding-right: 0;
     }
-
     .icon-chevron-left{
         margin-top: 3px;
+    }
+    .label{
+        display: block;
     }
 }
