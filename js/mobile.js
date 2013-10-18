@@ -124,7 +124,7 @@ function loadFeed(feed_id){
             }
             endLoading();
             assignListItemWidth();
-            activateContextMenu('feed');
+            activateTapholdEvents();
         },
         error:function(){
             console.log('*** Error displaying Feed ***');
@@ -165,7 +165,6 @@ function loadArticle(article_id){
                 console.log('article loaded');
             }
             endLoading();
-            activateContextMenu('article');
         },
         error:function(){
             console.log('*** Error displaying Article ***');
@@ -191,7 +190,11 @@ function markRead(article_id, isRead){
                 console.log('Problem marking article:'+article_id+' as read');
                 console.log(data);
             }else{
-                viewed = data;
+                if(data == 1){
+                    $("#"+article_id).addClass('read');
+                } else {
+                    $("#"+article_id).removeClass('read');
+                }
             }
         },
         error:function(){
@@ -200,8 +203,28 @@ function markRead(article_id, isRead){
     });
 }
 
+function multiMarkRead(article_index){
+    for(var idx = article_index; idx >= 0; idx--){
+        if(!$("#"+contextMenuIDs[idx]).hasClass('read')){
+                markRead(contextMenuIDs[idx], 0);
+                $("#"+contextMenuIDs[idx]).addClass('read');
+            }
+        }
+}
 
-function markArticle(article_id, isMarked){
+
+function markArticle(article_id){
+    var isMarked;
+    if($('#'+article_id+' .badge').hasClass('badge-warning')){
+        console.log('Article:'+article_id+' was NOT marked.');
+        isMarked = 1;
+
+    } else {
+        console.log('Article:'+article_id+' was marked.');
+        isMarked = 0;
+
+    }
+
     $.ajax({
         type: 'POST',
         url: '../php_scripts/mark_feed_article.php?m='+nocache(),
@@ -215,12 +238,12 @@ function markArticle(article_id, isMarked){
 //          successful request;
             if(data == 0){          // Un-mark article
                 $('#'+article_id+' .badge').removeClass('badge-warning');
-                marked = 0;
+//                marked = 0;
                 console.log('Article:'+article_id+' is now UN-marked.');
 
             }else if(data == 1){    // Mark article
                 $('#'+article_id+' .badge').addClass('badge-warning');
-                marked = 1;
+//                marked = 1;
                 console.log('Article:'+article_id+' is NOW marked.');
 //
             } else {                // Problem?
@@ -234,67 +257,36 @@ function markArticle(article_id, isMarked){
     });
 }
 
-function activateContextMenu(type){
-    if(type == 'feed'){
-        $.each(contextMenuIDs, function(index, article){
-            if(!$("#"+article).hasClass('read')){
-                $("#"+article).contextMenu('feed-context-menu', {
-                        'Mark as Read': {
-                            click: function(element){  // element is the jquery obj clicked on when context menu launched
-                                console.log('Context Menu - Marking Read article:'+article);
-                                markRead(article, 0);
-                                $("#"+article).addClass('read');
-                            },
-                            klass: "custom-class1" // a custom css class for this menu item (usable for styling)
-                        },
-                        'Mark Read Articles Above': {
-                            click: function(element){
-                                console.log('Context Menu - Marking articles as READ and above, starting from article:'+article);
-                                for(var idx = (index); idx >= 0; idx--){
-                                    if(!$("#"+contextMenuIDs[idx]).hasClass('read')){
-                                        markRead(contextMenuIDs[idx], 0);
-                                        $("#"+contextMenuIDs[idx]).addClass('read');
-                                    }
-                                }
-                            },
-                            klass: "custom-class2"
-                        }
-                    }
-                );
-            } else {
-                $("#"+article).contextMenu('feed-context-menu', {
-                        'Mark as Unread': {
-                            click: function(element){  // element is the jquery obj clicked on when context menu launched
-                                console.log('Context Menu - Marking Read article:'+article);
-                                markRead(article, 1);
-                                $("#"+article).removeClass('read');
-                            },
-                            klass: "custom-class1" // a custom css class for this menu item (usable for styling)
-                        }
-                    }
-                );
-            }
-        });
+function activateTapholdEvents(){
+    $.each(contextMenuIDs, function(index, article){
+        $("#"+article).bind("taphold", {duration: 500, article_index: index, article: article}, altMenu);
+    });
+}
 
+function altMenu(event){
+    console.log('alt menu active for '+event.data.article);
+    var over = '';
+    if( !$("#"+event.data.article).hasClass('read') ){
+        over = '<ul id="overlay_alt_menu">' +
+            '<li class="alt_menu_btn" onclick="markRead('+event.data.article+', 0);">Mark as Read</button></li>' +
+            '<li class="alt_menu_btn" onclick="multiMarkRead('+event.data.article_index+')">Mark Read Articles Above</li>' +
+            '</ul>';
     } else {
-        $.each( $('img[title]'), function(idx, element){
-            console.log( $(element) );
-            $(element).contextMenu('article-context-menu-1', {
-                'View Image Title': {
-                    click: function(element){  // element is the jquery obj clicked on when context menu launched
-                        console.log('Showing image title');
-                        alert( $(element).attr('title') );
-                    },
-                    klass: "custom-class1" // a custom css class for this menu item (usable for styling)
-                },
-                'Open Image in new Tab': {
-                    click: function(element){  // element is the jquery obj clicked on when context menu launched
-                        console.log('Opening image in a new tab');
-                        window.open( $(element).attr('src'), '_blank' );
-                    },
-                    klass: "custom-class2" // a custom css class for this menu item (usable for styling)
-                }
-            });
-        });
+        over = '<ul id="overlay_alt_menu">' +
+            '<li class="alt_menu_btn" onclick="markRead('+event.data.article+', 1);">Mark Unread</button></li>' +
+            '</ul>';
     }
+    $(over).appendTo('body');
+
+    // click on the overlay to remove it
+    $('#overlay_alt_menu').click(function() {
+        $(this).remove();
+    });
+
+    // hit escape to close the overlay
+    $(document).keyup(function(e) {
+        if (e.which === 27) {
+            $('#overlay_alt_menu').remove();
+        }
+    });
 }

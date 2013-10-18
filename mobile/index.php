@@ -39,12 +39,8 @@ if(isset($_REQUEST['a'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../img/favicon.ico" rel="SHORTCUT ICON"/>
     <link href="http://fonts.googleapis.com/css?family=Noto+Serif|Shanti|Goudy+Bookletter+1911" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-    <!-- Custom Context Menu -->
-    <link rel="stylesheet" href="../css/jquery.contextMenu.css" type="text/css"/>
-    <script type="text/javascript" src="../js/jquery.contextMenu.js"></script>
-    <!-- END - Custom Context Menu -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/taphold.js" ></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
