@@ -39,13 +39,13 @@ function endLoading(){
 
 function markArticle(article_id){
     var isMarked;
-    if($('#'+article_id+' .badge-warning').text() == ''){
+    if($('#'+article_id+' .badge').hasClass('badge-warning')){
         console.log('Article:'+article_id+' was NOT marked.');
-        isMarked = 0;
+        isMarked = 1;
 
     } else {
         console.log('Article:'+article_id+' was marked.');
-        isMarked = 1;
+        isMarked = 0;
 
     }
 
