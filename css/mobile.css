@@ -75,3 +75,21 @@ body{
     background: #EDF !important;
     font-weight: normal;
 }
+.alt_menu_btn{
+    background: #EDF;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #111;
+    margin: 2px;
+}
+#overlay_alt_menu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1.0;
+    width: 100%;
+    background: rgba(17,17,17,0.8);
+    height: 100%;
+    padding-top: 150px;
+}
