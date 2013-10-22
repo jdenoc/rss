@@ -163,7 +163,6 @@ body{
 .article_stamp{
     float: right;
     position: absolute;
-    background: #EDF !important;
     margin-top: -15px;
     padding: 0 5px 0 10px;
 }
