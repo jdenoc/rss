@@ -57,16 +57,21 @@ function subscribeToFeed(){
 
             }else if(data == 1){        // Success
                 $('#create_subscription_notice').html('SUCCESS!');
-                finishSubscriptionToFeed(url)
+                finishSubscriptionToFeed(url);
 
             }else if(data == 2){        // Already exists
                 $('#create_subscription_notice').html('Feed already exists');
+                endLoading();
+
+            } else {                    // Some sort of PHP error
+                $('#create_subscription_notice').html('An error has occurred while subscribing to a feed: '+url);
                 endLoading();
 
             }
         },
         error:function(){
            $('#create_subscription_notice').html('An error occurred while subscribing to the feed: '+url);
+            endLoading();
         }
     });
 }
@@ -91,6 +96,7 @@ function finishSubscriptionToFeed(url){
         },
         error:function(){
             $('#create_subscription_notice').html('An error occurred while subscribing to the feed: '+url);
+            endLoading();
         }
     });
 }
