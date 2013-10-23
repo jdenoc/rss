@@ -165,6 +165,7 @@ function loadArticle(article_id){
                 console.log('article loaded');
             }
             endLoading();
+            activateTapholdEvents();
         },
         error:function(){
             console.log('*** Error displaying Article ***');
@@ -262,26 +263,41 @@ function markArticle(article_id){
 
 
 function activateTapholdEvents(){
-    $.each(contextMenuIDs, function(index, article){
-        $("#"+article).bind("taphold", {duration: 500, article_index: index, article: article}, altMenu);
-    });
+    if(typeof contextMenuIDs === "undefined"){
+        $.each( $('.article img'), function(index, img){
+            $(img).bind("taphold", {duration: 500, type: 'article', img_info: img}, altMenu);
+        });
+    } else {
+        $.each(contextMenuIDs, function(index, article){
+            $("#"+article).bind("taphold", {duration: 500, type: 'feed', article_index: index, article: article}, altMenu);
+        });
+    }
 }
 
 
 var activeAltMenu = false;
 function altMenu(event){
-    console.log('alt menu active for '+event.data.article);
+    console.log('alt menu active');
     var over = '';
-    if( !$("#"+event.data.article).hasClass('read') ){
+    if( event.data.type == 'feed' ){
+        if( !$("#"+event.data.article).hasClass('read') ){
+            over = '<ul id="overlay_alt_menu">' +
+                    '   <li class="alt_menu_btn" onclick="markRead('+event.data.article+', 0);">Mark as Read</button></li>' +
+                    '   <li class="alt_menu_btn" onclick="multiMarkRead('+event.data.article_index+');">Mark Read Articles Above</li>' +
+                    '</ul>';
+        } else {
+            over = '<ul id="overlay_alt_menu">' +
+                    '   <li class="alt_menu_btn" onclick="markRead('+event.data.article+', 1);">Mark Unread</button></li>' +
+                    '</ul>';
+        }
+
+    } else if( event.data.type == 'article') {
         over = '<ul id="overlay_alt_menu">' +
-                '   <li class="alt_menu_btn" onclick="markRead('+event.data.article+', 0);">Mark as Read</button></li>' +
-                '   <li class="alt_menu_btn" onclick="multiMarkRead('+event.data.article_index+')">Mark Read Articles Above</li>' +
-                '</ul>';
-    } else {
-        over = '<ul id="overlay_alt_menu">' +
-                '   <li class="alt_menu_btn" onclick="markRead('+event.data.article+', 1);">Mark Unread</button></li>' +
+                '   <li class="alt_menu_btn" onclick="alert(\''+ $(event.data.img_info).attr('alt') +'\');">Show ALT text</li>' +
+                '   <li class="alt_menu_btn" onclick="window.open(\''+ $(event.data.img_info).attr('src') +'\', \'_blank\');">Open in new tab</li>' +
                 '</ul>';
     }
+
     if(!activeAltMenu){
         $(over).appendTo('body');
         activeAltMenu = true;
