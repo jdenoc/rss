@@ -12,13 +12,6 @@ $(window).resize( function(){
     setArticleStampLeft();
 });
 
-function printTime(){
-    // USED FOR TESTING ONLY
-    var now = new Date();
-    console.log(now);
-    setTimeout(printTime, 1000);
-}
-
 function nocache(){
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -123,7 +116,9 @@ function loadMenuCol(){
         type: 'POST',
         url: './php_scripts/get_feed_menu.php?x='+nocache(),
         cache: false,
-        beforeSend:function(){},
+        beforeSend:function(){
+            displayMarkedCount();
+        },
         success:function(data){
             // successful request; do something with the data
             if(data == 0){      // No feeds available
@@ -134,6 +129,23 @@ function loadMenuCol(){
                 setTimeout(loadMenuCol, 10*1000);
             }
 
+        },
+        error:function(){}
+    });
+}
+
+
+function displayMarkedCount(){
+    $.ajax({
+        type: 'POST',
+        url: './php_scripts/get_feed_menu.php?marked='+nocache()+'&x='+nocache(),
+        cache: false,
+        beforeSend:function(){},
+        success:function(data){
+            if(!isNaN(parseInt(data)))  // Returned data was a number
+                $('#marked_count').html('('+parseInt(data)+')');
+            else                        // Returned data didn't contain an int
+                $('#marked_count').html('');
         },
         error:function(){}
     });

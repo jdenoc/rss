@@ -98,7 +98,7 @@ if($detect->isMobile()){
         </li>
         <li>&nbsp;</li>
         <li><span title="Marked for Later" class="menu_link" onclick="displayRss(0)">
-            <span class="badge badge-warning">&nbsp;</span>Marked for Later
+            <span class="badge badge-warning">&nbsp;</span>Marked for Later <span id="marked_count"></span>
         </span></li>
 
         <!-- This rest of this list is populated from functions in menu_col.js -->

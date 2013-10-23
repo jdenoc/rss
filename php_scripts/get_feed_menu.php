@@ -8,6 +8,11 @@
 require_once('connection.php');
 $db = new pdo_connection('jdenocco_rss');
 
+if(isset($_REQUEST['marked'])){
+    print $db->getValue("SELECT COUNT(id) FROM feed_articles WHERE marked=1");
+    exit;
+}
+
 $feeds = $db->getAllRows("
     SELECT
       s.*,
