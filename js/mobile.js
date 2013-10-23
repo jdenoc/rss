@@ -182,7 +182,9 @@ function markRead(article_id, isRead){
             'article_id' : article_id
         },
         cache: false,
-        beforeSend:function(){},
+        beforeSend:function(){
+            activeAltMenu = false;
+        },
         success:function(data){
             // successful request;
             if(data != 0 && data != 1){     // Problems???
@@ -202,6 +204,7 @@ function markRead(article_id, isRead){
         }
     });
 }
+
 
 function multiMarkRead(article_index){
     for(var idx = article_index; idx >= 0; idx--){
@@ -257,35 +260,43 @@ function markArticle(article_id){
     });
 }
 
+
 function activateTapholdEvents(){
     $.each(contextMenuIDs, function(index, article){
         $("#"+article).bind("taphold", {duration: 500, article_index: index, article: article}, altMenu);
     });
 }
 
+
+var activeAltMenu = false;
 function altMenu(event){
     console.log('alt menu active for '+event.data.article);
     var over = '';
     if( !$("#"+event.data.article).hasClass('read') ){
         over = '<ul id="overlay_alt_menu">' +
-            '<li class="alt_menu_btn" onclick="markRead('+event.data.article+', 0);">Mark as Read</button></li>' +
-            '<li class="alt_menu_btn" onclick="multiMarkRead('+event.data.article_index+')">Mark Read Articles Above</li>' +
-            '</ul>';
+                '   <li class="alt_menu_btn" onclick="markRead('+event.data.article+', 0);">Mark as Read</button></li>' +
+                '   <li class="alt_menu_btn" onclick="multiMarkRead('+event.data.article_index+')">Mark Read Articles Above</li>' +
+                '</ul>';
     } else {
         over = '<ul id="overlay_alt_menu">' +
-            '<li class="alt_menu_btn" onclick="markRead('+event.data.article+', 1);">Mark Unread</button></li>' +
-            '</ul>';
+                '   <li class="alt_menu_btn" onclick="markRead('+event.data.article+', 1);">Mark Unread</button></li>' +
+                '</ul>';
     }
-    $(over).appendTo('body');
+    if(!activeAltMenu){
+        $(over).appendTo('body');
+        activeAltMenu = true;
+    }
 
     // click on the overlay to remove it
     $('#overlay_alt_menu').click(function() {
+        activeAltMenu = false;
         $(this).remove();
     });
 
     // hit escape to close the overlay
     $(document).keyup(function(e) {
         if (e.which === 27) {
+            activeAltMenu = false;
             $('#overlay_alt_menu').remove();
         }
     });
