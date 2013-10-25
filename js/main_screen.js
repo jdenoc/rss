@@ -178,6 +178,7 @@ var activeArticle = 0;     // takes the ID value of the article that is active/o
 function displayArticle(article_id){
     if(activeArticle == article_id){
         removeArticle();
+        setArticleStampLeft();
         return;     // exit function
     }
     $.ajax({
@@ -211,6 +212,7 @@ function displayArticle(article_id){
                 $('.article a:link').attr('target', '_blank');      // All article links should open in a new tab.
                 $('#feed_display').scrollTo('.article');
                 console.log('article loaded');
+                setArticleStampLeft();
             }
 
         },
@@ -292,6 +294,7 @@ function markFeedRead(feed_id, period){
         error:function(){}
     });
 }
+
 
 function setArticleStampLeft(){
     var mainDisplayWidth = parseInt($('#feed_display').css('margin-left')) + $('#feed_display li').width()-1;

@@ -11,6 +11,7 @@ $(document).ready(function(){
             loadArticle( $('#article').val() );
         } else {
             loadFeed( $('#feed_id').val() );
+            $('#hook').hook({ reloadPage: true });
         }
     } else {
         loadMenu();

@@ -35,7 +35,7 @@ if(isset($_REQUEST['a'])){
 <html>
 <head>
     <title>RSS Reader</title>
-    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../img/favicon.ico" rel="SHORTCUT ICON"/>
     <link href="http://fonts.googleapis.com/css?family=Noto+Serif|Shanti|Goudy+Bookletter+1911" rel="stylesheet" type="text/css"/>
@@ -48,6 +48,11 @@ if(isset($_REQUEST['a'])){
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <!-- END - Bootstrap -->
 
+    <!-- Hook (Pull to Refresh) -->
+    <link rel="stylesheet" href="../css/hook.css" type="text/css" />
+    <script type="text/javascript" src="../js/hook.min.js"></script>
+    <!-- END - Hook (Pull to Refresh) -->
+
     <link rel="stylesheet" href="../css/mobile.css" type="text/css" />
     <link rel="stylesheet" href="../css/bootstrap_custom.css" type="text/css" />
     <script type="text/javascript" src="../js/mobile.js"></script>
@@ -59,6 +64,8 @@ if(isset($_REQUEST['a'])){
     <![endif]-->
 </head>
 <body>
+
+<div id="hook" class="hook"></div>
 
 <div class="navbar navbar-inverse">
     <div class="navbar-inner"><div class="container">
