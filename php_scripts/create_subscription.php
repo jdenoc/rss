@@ -34,12 +34,16 @@ if($db->getValue("SELECT id FROM subscriptions WHERE feed_url LIKE :url", array(
     echo 2;     // Already exists
     exit;
 }
-//
-$doc = new DOMDocument();
-$doc->load($url);
-$title = $doc->getElementsByTagName('title')->item(0)->nodeValue;
-$db->insert('subscriptions', array('feed_url'=>$url, 'feed_title'=>$title, 'feed_type'=>$feed_response['type']));
-get_feed_icon($url, $title);
+
+try{
+    $doc = new DOMDocument();
+    $doc->load($url);
+    $title = $doc->getElementsByTagName('title')->item(0)->nodeValue;
+    $db->insert('subscriptions', array('feed_url'=>$url, 'feed_title'=>$title, 'feed_type'=>$feed_response['type']));
+    get_feed_icon($url, $title);
+} catch(Exception $e){
+    echo 'ERROR';
+}
 
 $db->closeConnection();
 echo 1;         // Success
@@ -47,7 +51,6 @@ exit;
 
 // ***** FUNCTIONS ***** //
 function validate_feed($feed_url){
-    // TODO - consider making this work with atom feeds as well as rss feeds
     $validator = 'http://feedvalidator.org/check.cgi?url=';
     $response = array();
     if( $validation_response = @file_get_contents($validator.urlencode($feed_url)) ) {
