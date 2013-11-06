@@ -16,28 +16,51 @@ if(!$doc->load($feed_info['feed_url'])){
     echo 0;     // Failed to load feed url
 }
 
-$node_name = '';
+$feed_attr = array();
 if($feed_info['feed_type']=='rss'){
-    $node_name = 'item';
-    $content_name = 'description';
+    $feed_attr['node'] = 'item';
+    $feed_attr['content'] = array('description', 'content');
+    $feed_attr['uid'] = 'guid';
 }elseif($feed_info['feed_type']=='atom'){
-    $node_name = 'entry';
-    $content_name = 'summary';
+    $feed_attr['node'] = 'entry';
+    $feed_attr['content'] = array('summary', 'content');
+    $feed_attr['uid'] = 'id';
 }
 
 // Processing RSS/Atom Feed
 $insert_array = array();
-foreach($doc->getElementsByTagName($node_name) as $node){
+$feed_updated = false;
+foreach($doc->getElementsByTagName($feed_attr['node']) as $node){
     $insert_array['title'] = htmlentities(trim($node->getElementsByTagName('title')->item(0)->nodeValue), ENT_QUOTES);
-    if(!($db->getValue("SELECT id FROM feed_articles WHERE title LIKE :title", array('title'=>$insert_array['title'])))){
-        $insert_array['link'] = trim($node->getElementsByTagName('link')->item(0)->nodeValue);
-        $content = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $node->getElementsByTagName($content_name)->item(0)->nodeValue);
-        $insert_array['content'] = htmlentities(trim($content), ENT_QUOTES);
-        $insert_array['stamp'] = date('Y-m-d H:i:s');   // Set Download stamp
-        $insert_array['feed_id'] = $feed_id;
+    $insert_array['link'] = trim($node->getElementsByTagName('link')->item(0)->nodeValue);
+    $insert_array['stamp'] = date('Y-m-d H:i:s');   // Set Download stamp
+    $insert_array['feed_id'] = $feed_id;
+    $content_index = 0;
+    if(is_null($node->getElementsByTagName( $feed_attr['content'][$content_index] )->item(0))){
+        $content_index = 1;
+    }
+    $content = $node->getElementsByTagName( $feed_attr['content'][$content_index] )->item(0)->nodeValue;
+    $content = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $content);
+    $insert_array['content'] = htmlentities(trim($content), ENT_QUOTES);
+    $unique_id_node = $node->getElementsByTagName($feed_attr['uid'])->item(0);
 
+    if(!is_null($unique_id_node)){
+        if($db->getValue("SELECT id FROM feed_articles WHERE guid = :guid", array('guid'=>$unique_id_node->nodeValue))){
+            $db->update('feed_articles', $insert_array, 'guid=:guid', array('guid'=>$unique_id_node->nodeValue));
+        } else {
+            $insert_array['guid'] = $unique_id_node->nodeValue;
+            $db->insert('feed_articles', $insert_array);
+        }
+        $feed_updated = true;
+
+    }elseif(!($db->getValue("SELECT id FROM feed_articles WHERE title LIKE :title", array('title'=>$insert_array['title'])))){
+        $insert_array['guid'] = '';
         $db->insert('feed_articles', $insert_array);
-        $db->update('subscriptions', array('last_updated'=>date('Y-m-d H:i:s')), 'id=:id', array('id'=>$feed_id));
+        $feed_updated = true;
     }
 }
+
+if($feed_updated)
+    $db->update('subscriptions', array('last_updated'=>date('Y-m-d H:i:s')), 'id=:id', array('id'=>$feed_id));
+
 echo 1;
