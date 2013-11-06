@@ -23,7 +23,7 @@ class pdo_connection{
     }
 
     public function exec($stmt){
-        if($this->debug)    echo $stmt."\r\n";
+        $this->debugMode($stmt, array());
         return $this->db->exec($stmt);
     }
 
@@ -35,10 +35,7 @@ class pdo_connection{
         }
         $query->execute();
 
-        if($this->debug){
-            echo $stmt."\r\n";
-            $query->debugDumpParams();
-        }
+        $this->debugMode($stmt, $bind);
         return $query->fetchAll();
     }
 
@@ -55,10 +52,7 @@ class pdo_connection{
         }
         $query->execute();
 
-        if($this->debug){
-            echo $stmt."\r\n";
-            $query->debugDumpParams();
-        }
+        $this->debugMode($stmt, $bind);
         return $query->fetchColumn();
     }
 
@@ -75,10 +69,7 @@ class pdo_connection{
             $array[] = $query->fetchColumn();
         }
 
-        if($this->debug){
-            echo $stmt."\r\n";
-            $query->debugDumpParams();
-        }
+        $this->debugMode($stmt, $bind);
         return $array;
     }
 
@@ -91,10 +82,7 @@ class pdo_connection{
         }
         $query->execute();
 
-        if($this->debug){
-            echo $stmt."\r\n";
-            $query->debugDumpParams();
-        }
+        $this->debugMode($stmt, $bind);
         return $query->fetch();
     }
 
@@ -107,7 +95,7 @@ class pdo_connection{
         $values = substr($values, 0, strlen($values)-1);
         $stmt = "INSERT INTO $tbl_name SET $values";
 
-        if($this->debug)    echo $stmt."\r\n";
+        $this->debugMode($stmt, array());
         return $this->db->exec($stmt);
     }
 
@@ -128,10 +116,7 @@ class pdo_connection{
         }
         $result = $query->execute();
 
-        if($this->debug){
-            echo $stmt."\r\n";
-            $query->debugDumpParams();
-        }
+        $this->debugMode($stmt, $whereArray);
         return $result;
     }
 
@@ -145,19 +130,17 @@ class pdo_connection{
         }
         $result = $query->execute();
 
-        if($this->debug){
-            echo $stmt."\r\n";
-            $query->debugDumpParams();
-        }
+        $this->debugMode($stmt, $whereArray);
         return $result;
     }
 
-    /**
-     * Activates Debug mode, when true is entered into debug function parameters value.
-     * @param bool $activate: default = false. Only really needed for testing.
-     */
-    public function debugMode($activate = false){
-        $this->debug = $activate;
+
+    public function debugMode($stmt, $whereArray){
+        if($this->debug){
+            echo "[statement:]".$stmt."<br/>\r\n<pre>";
+            var_dump($whereArray);
+            echo "</pre>";
+        }
     }
 
 
