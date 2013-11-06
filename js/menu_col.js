@@ -10,6 +10,7 @@ $(document).ready(function(){
 
 $(window).resize( function(){
     setArticleStampLeft();
+    $('.article iframe').width( $('.article').width()-10 );
 });
 
 function nocache(){
