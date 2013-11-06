@@ -69,7 +69,7 @@ function markArticle(article_id){
                 $('#'+article_id+' .badge').addClass('badge-warning');
                 $('.article .badge input:checkbox').prop('checked', true);
                 console.log('Article:'+article_id+' is NOW marked.');
-//
+
             } else {                // Problem?
                 console.log('Problem marking article:'+article_id+' as marked');
                 console.log(data);
@@ -212,7 +212,7 @@ function displayArticle(article_id){
                 $('.article a:link').attr('target', '_blank');      // All article links should open in a new tab.
                 $('#feed_display').scrollTo('.article');
                 console.log('article loaded');
-                setArticleStampLeft();
+                setTimeout(setArticleStampLeft,100);
             }
 
         },
