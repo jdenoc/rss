@@ -206,8 +206,12 @@ function displayArticle(article_id){
                 activeArticle = article_id;
                 $('.article iframe').width( $('.article').width()-10 );
                 $.each($('.article iframe'), function(){
-                    var popout = '<br/><a href="'+$(this).attr('src')+'" title="Click to open in a new window" target="_blank">Popout</a><br/>';
+                    var popout = '<br/><a href="'+$(this).attr('src')+'" title="Click to open in a new window" target="_blank">Popout</a><br/><br/>';
                     $(this).after(popout);
+                });
+                $('.article iframe + br + a').click(function(){
+                    window.open(this.href, 'Popup', "width=700,height=350");
+                    return false;
                 });
                 $('.article a:link').attr('target', '_blank');      // All article links should open in a new tab.
                 $('#feed_display').scrollTo('.article');

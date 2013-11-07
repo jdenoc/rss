@@ -159,7 +159,7 @@ function loadArticle(article_id){
                 $('.article').children().removeAttr('style');
                 $('.article iframe').width( $('.article').width()-10 );
                 $.each($('.article iframe'), function(){
-                    var popout = '<br/><a href="'+$(this).attr('src')+'" title="Click to open in a new window" target="_blank">Popout</a><br/>';
+                    var popout = '<br/><a href="'+$(this).attr('src')+'" title="Click to open in a new window" target="_blank">Popout</a><br/><br/>';
                     $(this).after(popout);
                 });
                 $('.article a:link').attr('target', '_blank');      // All article links should open in a new tab.
