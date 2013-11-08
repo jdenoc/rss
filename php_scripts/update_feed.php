@@ -6,7 +6,7 @@
  */
 date_default_timezone_set("UTC");
 require_once('connection.php');
-$db = new pdo_connection('jdenocco_rss');
+$db = new pdo_connection('jdenocco_rss', true);
 
 $feed_id = $_REQUEST['feed_id'];
 $feed_info = $db->getRow("SELECT feed_url, feed_type FROM subscriptions WHERE id=:feed_id", array('feed_id'=>$feed_id));
@@ -28,34 +28,34 @@ if($feed_info['feed_type']=='rss'){
 }
 
 // Processing RSS/Atom Feed
-$insert_array = array();
 $feed_updated = false;
 foreach($doc->getElementsByTagName($feed_attr['node']) as $node){
-    $insert_array['title'] = htmlentities(trim($node->getElementsByTagName('title')->item(0)->nodeValue), ENT_QUOTES);
-    $insert_array['link'] = trim($node->getElementsByTagName('link')->item(0)->nodeValue);
-    $insert_array['stamp'] = date('Y-m-d H:i:s');   // Set Download stamp
-    $insert_array['feed_id'] = $feed_id;
+    $node_value_array = array();
+    $node_value_array['title'] = htmlentities(trim($node->getElementsByTagName('title')->item(0)->nodeValue), ENT_QUOTES);
+    $node_value_array['link'] = trim($node->getElementsByTagName('link')->item(0)->nodeValue);
+    $node_value_array['stamp'] = date('Y-m-d H:i:s');   // Set Download stamp
+    $node_value_array['feed_id'] = $feed_id;
     $content_index = 0;
     if(is_null($node->getElementsByTagName( $feed_attr['content'][$content_index] )->item(0))){
         $content_index = 1;
     }
     $content = $node->getElementsByTagName( $feed_attr['content'][$content_index] )->item(0)->nodeValue;
     $content = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $content);
-    $insert_array['content'] = htmlentities(trim($content), ENT_QUOTES);
+    $node_value_array['content'] = htmlentities(trim($content), ENT_QUOTES);
     $unique_id_node = $node->getElementsByTagName($feed_attr['uid'])->item(0);
 
     if(!is_null($unique_id_node)){
         if($db->getValue("SELECT id FROM feed_articles WHERE guid = :guid", array('guid'=>$unique_id_node->nodeValue))){
-            $db->update('feed_articles', $insert_array, 'guid=:guid', array('guid'=>$unique_id_node->nodeValue));
+            $db->update('feed_articles', $node_value_array, 'guid=:guid', array('guid'=>$unique_id_node->nodeValue));
         } else {
-            $insert_array['guid'] = $unique_id_node->nodeValue;
-            $db->insert('feed_articles', $insert_array);
+            $node_value_array['guid'] = $unique_id_node->nodeValue;
+            $db->insert('feed_articles', $node_value_array);
         }
         $feed_updated = true;
 
-    }elseif(!($db->getValue("SELECT id FROM feed_articles WHERE title LIKE :title", array('title'=>$insert_array['title'])))){
-        $insert_array['guid'] = '';
-        $db->insert('feed_articles', $insert_array);
+    }elseif(!($db->getValue("SELECT id FROM feed_articles WHERE title LIKE :title", array('title'=>$node_value_array['title'])))){
+        $node_value_array['guid'] = '';
+        $db->insert('feed_articles', $node_value_array);
         $feed_updated = true;
     }
 }
