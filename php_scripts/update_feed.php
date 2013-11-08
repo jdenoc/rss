@@ -6,7 +6,7 @@
  */
 date_default_timezone_set("UTC");
 require_once('connection.php');
-$db = new pdo_connection('jdenocco_rss', true);
+$db = new pdo_connection('jdenocco_rss');
 
 $feed_id = $_REQUEST['feed_id'];
 $feed_info = $db->getRow("SELECT feed_url, feed_type FROM subscriptions WHERE id=:feed_id", array('feed_id'=>$feed_id));
