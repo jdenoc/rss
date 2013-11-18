@@ -37,6 +37,11 @@ function endLoading(){
 }
 
 
+function scrollTo(article){
+    $('html,body').animate({scrollTop:($('#'+article).offset().top-50)}, 750);
+}
+
+
 function markArticle(article_id){
     var isMarked;
     if($('#'+article_id+' .badge').hasClass('badge-warning')){
@@ -214,7 +219,7 @@ function displayArticle(article_id){
                     return false;
                 });
                 $('.article a:link').attr('target', '_blank');      // All article links should open in a new tab.
-                $('#feed_display').scrollTo('.article');
+                scrollTo(article_id);
                 console.log('article loaded');
                 setTimeout(setArticleStampLeft,100);
             }

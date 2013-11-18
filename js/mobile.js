@@ -8,7 +8,7 @@ $(document).ready(function(){
     if($('#feed_id').val() != ''){
         if($('#article').val() != ''){
             markRead( $('#article').val(), 0 );
-            loadArticle( $('#article').val() );
+            loadArticle( $("#article").val() );
         } else {
             loadFeed( $('#feed_id').val() );
             $('#hook').hook({ reloadPage: true });
@@ -19,6 +19,11 @@ $(document).ready(function(){
 
     $('.dropdown-toggle').dropdown();
 });
+
+
+function topScroll(){
+    $('html,body').animate({scrollTop:$('.navbar').offset().top}, 750);
+}
 
 
 $(window).resize( function(){

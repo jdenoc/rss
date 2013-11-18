@@ -28,7 +28,7 @@ if(isset($_REQUEST['m'])){
     $text .= '      <label style="display: inline;"><span class="badge badge-warning"  style="margin-right:0">';
     $text .= '          <input type="checkbox" style="margin: 0 -3px 0 -2px;" onclick="markArticle('.$article_id.', marked)" '.$marked.'/>';
     $text .= '      </span> Mark for Later</label>'."\r\n";
-    $text .= '      <div style="text-align: center; margin-top: 15px"><a onclick="$(\'body\').scrollTo(0)">Scroll to Top</a></div>';
+    $text .= '      <div style="text-align: center; margin-top: 15px"><a onclick="topScroll()">Scroll to Top</a></div>';
     $text .= '      <strong style="text-align:center; margin-top: 10px; display:block;font-size:10px">'.$article['stamp'].'</strong>';
     // TODO - add sharing features.
     $text .= "  </div>\r\n";

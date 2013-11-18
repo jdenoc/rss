@@ -56,7 +56,6 @@ if(isset($_REQUEST['a'])){
     <link rel="stylesheet" href="../css/mobile.css" type="text/css" />
     <link rel="stylesheet" href="../css/bootstrap_custom.css" type="text/css" />
     <script type="text/javascript" src="../js/mobile.js"></script>
-    <script type="text/javascript" src="../js/scrollTo.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
