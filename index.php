@@ -5,7 +5,7 @@
  * Last Modified: 2013-7-09
  */
 
-include_once('php_scripts/Mobile_Detect.php');
+include_once('includes/Mobile_Detect.php');
 $detect = new Mobile_Detect();
 if($detect->isMobile()){
     header('Location: mobile/');

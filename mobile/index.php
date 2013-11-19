@@ -5,7 +5,7 @@
  * Last Modified: 2013-7-09
  */
 
-include_once('../php_scripts/Mobile_Detect.php');
+include_once('../includes/Mobile_Detect.php');
 $detect = new Mobile_Detect();
 if(!$detect->isMobile()){
     header('Location: ../');
@@ -13,7 +13,7 @@ if(!$detect->isMobile()){
 
 if(isset($_REQUEST['id'])){
     $feed_id = $_REQUEST['id'];
-    require_once('../php_scripts/connection.php');
+    require_once('../includes/connection.php');
     $db = new pdo_connection('jdenocco_rss');
     $feed_name = $db->getValue("SELECT feed_title FROM subscriptions WHERE id=:feed_id", array('feed_id'=>$feed_id));
     $db->closeConnection();

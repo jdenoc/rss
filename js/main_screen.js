@@ -56,7 +56,7 @@ function markArticle(article_id){
 
     $.ajax({
         type: 'POST',
-        url: './php_scripts/mark_feed_article.php?x='+nocache(),
+        url: './includes/mark_feed_article.php?x='+nocache(),
         data: {
             'marked' : isMarked,
             'article_id' : article_id
@@ -102,7 +102,7 @@ function loadRss(feed_name, feed_id){
 
     $.ajax({
         type: 'POST',
-        url: './php_scripts/update_feed.php?x='+nocache(),
+        url: './includes/update_feed.php?x='+nocache(),
         data: {
             'feed_id' : feed_id
         },
@@ -146,7 +146,7 @@ var activeFeed = 0;     // takes the ID value of the feed that is active/open.
 function displayRss(feed_id){
     $.ajax({
         type: 'POST',
-        url: './php_scripts/load_feed.php?x='+nocache(),
+        url: './includes/load_feed.php?x='+nocache(),
         data: {
             'feed_id' : feed_id
         },
@@ -188,7 +188,7 @@ function displayArticle(article_id){
     }
     $.ajax({
         type: 'POST',
-        url: './php_scripts/load_article.php?x='+nocache(),
+        url: './includes/load_article.php?x='+nocache(),
         data: {
             'article_id' : article_id
         },
@@ -253,7 +253,7 @@ function markRead(article_id, isRead){
 
     $.ajax({
         type: 'POST',
-        url: './php_scripts/read_feed_article.php?x='+nocache(),
+        url: './includes/read_feed_article.php?x='+nocache(),
         data: {
             'viewed' : isRead,
             'article_id' : article_id
@@ -283,7 +283,7 @@ function markRead(article_id, isRead){
 function markFeedRead(feed_id, period){
     $.ajax({
         type: 'POST',
-        url: './php_scripts/read_feed.php?x='+nocache(),
+        url: './includes/read_feed.php?x='+nocache(),
         data: {
             'period' : period,
             'feed_id' : feed_id

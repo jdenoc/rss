@@ -84,7 +84,7 @@ function endLoading(){
 function loadMenu(){
     $.ajax({
         type: 'POST',
-        url: '../php_scripts/get_feed_menu.php?m='+nocache(),
+        url: '../includes/get_feed_menu.php?m='+nocache(),
         cache: false,
         beforeSend:function(){
             if(!isLoading)  loading();
@@ -108,7 +108,7 @@ function loadMenu(){
 function loadFeed(feed_id){
     $.ajax({
         type: 'POST',
-        url: '../php_scripts/load_feed.php?m='+nocache(),
+        url: '../includes/load_feed.php?m='+nocache(),
         data: {
             'feed_id' : feed_id
         },
@@ -143,7 +143,7 @@ function loadFeed(feed_id){
 function loadArticle(article_id){
     $.ajax({
         type: 'POST',
-        url: '../php_scripts/load_article.php?m='+nocache(),
+        url: '../includes/load_article.php?m='+nocache(),
         data: {
             'article_id' : article_id
         },
@@ -183,7 +183,7 @@ function loadArticle(article_id){
 function markRead(article_id, isRead){
     $.ajax({
         type: 'POST',
-        url: '../php_scripts/read_feed_article.php?m='+nocache(),
+        url: '../includes/read_feed_article.php?m='+nocache(),
         data: {
             'viewed' : isRead,
             'article_id' : article_id
@@ -237,7 +237,7 @@ function markArticle(article_id){
 
     $.ajax({
         type: 'POST',
-        url: '../php_scripts/mark_feed_article.php?m='+nocache(),
+        url: '../includes/mark_feed_article.php?m='+nocache(),
         data: {
             'marked' : isMarked,
             'article_id' : article_id

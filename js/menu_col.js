@@ -29,7 +29,7 @@ function subscribeToFeed(){
 
     $.ajax({
         type: 'POST',
-        url: './php_scripts/create_subscription.php?x='+nocache(),
+        url: './includes/create_subscription.php?x='+nocache(),
         data: {
             'url' : url
         },
@@ -74,7 +74,7 @@ function subscribeToFeed(){
 function finishSubscriptionToFeed(url){
     $.ajax({
         type: 'POST',
-        url: './php_scripts/create_subscription.php?x='+nocache()+'&json='+nocache(),
+        url: './includes/create_subscription.php?x='+nocache()+'&json='+nocache(),
         data: {
             'url' : url
         },
@@ -115,7 +115,7 @@ function cancelSubscribeToFeed(){
 function loadMenuCol(){
     $.ajax({
         type: 'POST',
-        url: './php_scripts/get_feed_menu.php?x='+nocache(),
+        url: './includes/get_feed_menu.php?x='+nocache(),
         cache: false,
         beforeSend:function(){
             displayMarkedCount();
@@ -139,7 +139,7 @@ function loadMenuCol(){
 function displayMarkedCount(){
     $.ajax({
         type: 'POST',
-        url: './php_scripts/get_feed_menu.php?marked='+nocache()+'&x='+nocache(),
+        url: './includes/get_feed_menu.php?marked='+nocache()+'&x='+nocache(),
         cache: false,
         beforeSend:function(){},
         success:function(data){
@@ -160,7 +160,7 @@ function removeSubscription(feedID){
     }
     $.ajax({
         type: 'POST',
-        url: './php_scripts/remove_subscription.php?x='+nocache(),
+        url: './includes/remove_subscription.php?x='+nocache(),
         data: {
             'feed_id' : feedID
         },
