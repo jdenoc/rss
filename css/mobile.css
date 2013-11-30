@@ -75,6 +75,9 @@ body{
     background: #EDF !important;
     font-weight: normal;
 }
+#more_btn{
+    text-align: center !important;
+}
 .alt_menu_btn{
     background: #EDF;
     line-height: 40px;

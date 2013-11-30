@@ -110,7 +110,8 @@ function loadFeed(feed_id){
         type: 'POST',
         url: '../includes/load_feed.php?m='+nocache(),
         data: {
-            'feed_id' : feed_id
+            feed_id : feed_id,
+            limit: 0
         },
         cache: false,
         beforeSend:function(){
@@ -131,6 +132,36 @@ function loadFeed(feed_id){
             endLoading();
             assignListItemWidth();
             activateTapholdEvents();
+        },
+        error:function(){
+            console.log('*** Error displaying Feed ***');
+            endLoading();
+        }
+    });
+}
+
+
+function displayMoreRss(limit){
+    $.ajax({
+        type: 'POST',
+        url: '../includes/load_feed.php?m='+nocache(),
+        data: {
+            feed_id : $('#feed_id').val(),
+            limit: limit
+        },
+        cache: false,
+        beforeSend:function(){
+            // remove articles currently displayed
+            if(!isLoading)   loading();
+            $('#more_btn').remove();
+        },
+        success:function(data){
+//          successful request
+            if(data != 0){  // Success
+                // display new articles
+                $(data).appendTo( $('#feed_list') );
+            }
+            endLoading();
         },
         error:function(){
             console.log('*** Error displaying Feed ***');

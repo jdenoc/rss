@@ -181,7 +181,6 @@ function displayRss(feed_id){
 
 
 function displayMoreRss(limit){
-    console.log('activeFeed:'+activeFeed);
     $.ajax({
         type: 'POST',
         url: './includes/load_feed.php?x='+nocache(),

@@ -45,8 +45,8 @@ if(isset($_REQUEST['m'])){
 }
 
 if(count($articles)>=100){
-    $text .= "<li id=\"more_btn\" class=\"list_item label\">\r\n";
-    $text .= '  <span onclick="displayMoreRss('.($limit+count($articles)+1).')">MORE</span>'."\r\n";
+    $text .= '<li id="more_btn" class="list_item label" onclick="displayMoreRss('.($limit+count($articles)+1).')">'."\r\n";
+    $text .= "  &#126;&nbsp;MORE&nbsp;&#126;\r\n";
     $text .= "</li>\r\n";
 }
 
