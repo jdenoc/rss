@@ -44,7 +44,6 @@ if(isset($_REQUEST['a'])){
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
-    <script type="text/javascript" src="../js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <!-- END - Bootstrap -->
 
