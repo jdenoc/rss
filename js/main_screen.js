@@ -88,7 +88,7 @@ function markArticle(article_id){
 var loadCount = 0;      // counts the amount of times the loadRss() function tries to load.
 function loadRss(feed_name, feed_id){
 
-    if(feed_id == undefined){
+    if(typeof feed_id == 'undefined'){
         return;     // exit function
     }else if(feed_id == 0){     // For refreshing the mark articles page
         console.log('Loading Marked articles.');
@@ -104,7 +104,7 @@ function loadRss(feed_name, feed_id){
         type: 'POST',
         url: './includes/update_feed.php?x='+nocache(),
         data: {
-            'feed_id' : feed_id
+            feed_id : feed_id
         },
         cache: false,
         beforeSend:function(){
@@ -148,7 +148,8 @@ function displayRss(feed_id){
         type: 'POST',
         url: './includes/load_feed.php?x='+nocache(),
         data: {
-            'feed_id' : feed_id
+            feed_id : feed_id,
+            limit: 0
         },
         cache: false,
         beforeSend:function(){
@@ -170,6 +171,40 @@ function displayRss(feed_id){
                 endLoading();
                 setArticleStampLeft();
             }
+        },
+        error:function(){
+            console.log('*** Error displaying Feed ***');
+            endLoading();
+        }
+    });
+}
+
+
+function displayMoreRss(limit){
+    console.log('activeFeed:'+activeFeed);
+    $.ajax({
+        type: 'POST',
+        url: './includes/load_feed.php?x='+nocache(),
+        data: {
+            feed_id : activeFeed,
+            limit: limit
+        },
+        cache: false,
+        beforeSend:function(){
+            // remove articles currently displayed
+            if(!isLoading)   loading();
+            $('#more_btn').remove();
+            removeArticle();
+            $('.pull-right').show();
+        },
+        success:function(data){
+//          successful request
+            if(data != 0){  // Success
+                // display new articles
+                $(data).appendTo( $('#feed_display') );
+                setArticleStampLeft();
+            }
+            endLoading();
         },
         error:function(){
             console.log('*** Error displaying Feed ***');

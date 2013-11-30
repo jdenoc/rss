@@ -7,10 +7,11 @@
 require_once('connection.php');
 $db = new pdo_connection('jdenocco_rss');
 
+$limit = $_REQUEST['limit'];
 if($_REQUEST['feed_id'] == 0){
-    $articles = $db->getAllRows("SELECT * FROM feed_articles WHERE marked=1 ORDER BY marked_date DESC", array('feed_id'=>$_REQUEST['feed_id']));
+    $articles = $db->getAllRows("SELECT * FROM feed_articles WHERE marked=1 ORDER BY marked_date DESC LIMIT $limit, 100", array('feed_id'=>$_REQUEST['feed_id']));
 }else{
-    $articles = $db->getAllRows("SELECT * FROM feed_articles WHERE feed_id=:feed_id AND viewed=0 ORDER BY stamp DESC", array('feed_id'=>$_REQUEST['feed_id']));
+    $articles = $db->getAllRows("SELECT * FROM feed_articles WHERE feed_id=:feed_id AND viewed=0 ORDER BY stamp DESC LIMIT $limit, 100", array('feed_id'=>$_REQUEST['feed_id']));
 }
 if(!$articles){        // No feeds available.
     print 0;
@@ -41,6 +42,12 @@ if(isset($_REQUEST['m'])){
         $text .= '  <div class="article_stamp">'.$date.'</div>';
         $text .= "</li>\r\n";
     }
+}
+
+if(count($articles)>=100){
+    $text .= "<li id=\"more_btn\" class=\"list_item label\">\r\n";
+    $text .= '  <span onclick="displayMoreRss('.($limit+count($articles)+1).')">MORE</span>'."\r\n";
+    $text .= "</li>\r\n";
 }
 
 print $text;
