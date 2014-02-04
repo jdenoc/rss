@@ -2,7 +2,6 @@
 /**
  * Created by: denis
  * Created on: 2013-06-13
- * Modified on: 2013-06-26
  */
 
 require_once('connection.php');
@@ -50,9 +49,10 @@ $db->closeConnection();
 exit;
 
 function check_feed_icon($feed_title){
-    if(file_exists($_SERVER['DOCUMENT_ROOT'].'img/menu_icons/'.$feed_title.'.ico')){
-        return 'img/menu_icons'.$feed_title.'.png';
-    }else{
+    $file = preg_replace('/\s+/', '_', $feed_title).'.png';
+    if(file_exists(__DIR__.'/../img/menu_icons/'.$file)){
+        return 'img/menu_icons/'.$file;
+    } else {
         return 'img/menu_icons/rss.png';
     }
 }

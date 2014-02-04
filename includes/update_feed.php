@@ -2,7 +2,6 @@
 /**
  * User: jdenoc
  * Date: 2013-06-04
- * Last modified: 2013-07-09
  */
 date_default_timezone_set("UTC");
 require_once('connection.php');
@@ -12,7 +11,6 @@ $feed_id = $_REQUEST['feed_id'];
 $feed_info = $db->getRow("SELECT feed_url, feed_type FROM subscriptions WHERE id=:feed_id", array('feed_id'=>$feed_id));
 $doc = new DOMDocument();
 if(!$doc->load($feed_info['feed_url'])){
-    echo $url;
     echo 0;     // Failed to load feed url
 }
 

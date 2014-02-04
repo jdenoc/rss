@@ -73,19 +73,8 @@ function validate_feed($feed_url){
 
 
 function get_feed_icon($feed_url, $feed_name){
-    // TODO - get this to work
+    $file = preg_replace('/\s+/', '_', $feed_name).'.png';
     $favicon_url = 'http://www.google.com/s2/favicons?domain='.$feed_url;
-    $img_path = $_SERVER['DOCUMENT_ROOT'].'/img/main_icons/';
-    $file = @fopen ($favicon_url, "rb");
-    if ($file) {
-        $newf = @fopen ($img_path, "wb");
-
-        if ($newf){
-            while(!feof($file)) {
-                @fwrite($newf, fread($file, 1024 * 8 ), 1024 * 8 );
-            }
-            @fclose($newf);
-        }
-        @fclose($file);
-    }
+    $file_contents = @file_get_contents($favicon_url);
+    @file_put_contents(__DIR__.'../img/menu_icons/'.$file, $file_contents);
 }

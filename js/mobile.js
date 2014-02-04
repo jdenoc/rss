@@ -1,7 +1,6 @@
 /**
  * User: jdenoc
  * Created on: 2013-07-08
- * Last Modified: 2013-07-13
  */
 
 $(document).ready(function(){
@@ -51,9 +50,7 @@ var isLoading = false;  // indicates if the loading screen from loading() is act
 function loading(){
     isLoading = true;
     // add the overlay with loading image to the page
-    var over = '<div id="overlay">' +
-        '<img id="loading" src="../img/loader.gif" alt="loading"/>' +
-        '</div>';
+    var over = '<div id="overlay"><img id="loading" src="../img/loader.gif" alt="loading"/></div>';
     $(over).appendTo('body');
 
     // click on the overlay to remove it
