@@ -17,5 +17,5 @@ Thumbs.db
 
 # Log files #
 ######################
-php_scripts/error_log
+includes/error_log
 cron/error_log
